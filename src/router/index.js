@@ -13,6 +13,16 @@ Vue.use(VueRouter)
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue')
+  },
+  {
+    path: '/detalles',
+    name: 'Detalles',
+    component: () => import('../views/Detalles.vue')
+  },
+  {
+    path: '/perfil',
+    name: 'Perfil',
+    component: () => import('../views/Perfil.vue')
   }
 ]
 

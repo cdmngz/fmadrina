@@ -17,10 +17,14 @@
           width="72"
         />
       </div>
+      <v-tabs class="ml-4" v-if="currentRouteName !== 'Home'">
+        <v-tabs-slider color="teal lighten-4"></v-tabs-slider>
+        <v-tab to="/dashboard"><v-icon color="teal lighten-4">mdi-home-assistant</v-icon></v-tab>
+      </v-tabs>
       <v-spacer></v-spacer>
       <v-menu :offset-y="true">
         <template v-slot:activator="{ on }">
-          <v-btn v-show="currentRouteName === 'Dashboard'" icon v-on="on">
+          <v-btn v-show="currentRouteName !== 'Home'" icon v-on="on">
             <v-icon color="grey darken-1">mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
