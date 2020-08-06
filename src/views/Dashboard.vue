@@ -4,7 +4,27 @@
     <v-card class="mb-8 pa-7">
       <v-row>
         <v-spacer></v-spacer>
-        <v-btn fab small depressed class="teal lighten-4" dark><v-icon>mdi-plus</v-icon></v-btn>
+        <v-dialog v-model="dialog" width="500">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn fab small depressed class="teal lighten-4" dark v-on="on" v-bind="attrs"><v-icon>mdi-plus</v-icon></v-btn>
+        </template>
+
+        <v-card>
+          <v-card-title class="headline grey lighten-2">
+            Agregar Persona
+          </v-card-title>
+
+          <v-text-field type="text" label="Nombre" class="mx-10 my-2"></v-text-field>
+  
+          <v-divider></v-divider>
+    
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="error" text @click="dialog = false">Cancelar</v-btn>
+            <v-btn color="success" text @click="dialog = false">Guardar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
       </v-row>
       <v-row>
         <v-col xs="12" md="3">
@@ -37,25 +57,34 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content class="text-center">
           <v-row cols="12">
-            <v-col><span><b>Nacionalidad:</b> Español</span></v-col>
-            <v-col><span><b>Nacionalidad:</b> Español</span></v-col>
-            <v-col><span><b>Nacionalidad:</b> Español</span></v-col>
-            <v-col><span><b>Nacionalidad:</b> Español</span></v-col>
-            <v-col><span><b>Nacionalidad:</b> Español</span></v-col>
-            <v-col><span><b>Nacionalidad:</b> Español</span></v-col>
-            <v-col><span><b>Nacionalidad:</b> Español</span></v-col>
-            <v-col><span><b>Nacionalidad:</b> Español</span></v-col>
-            <v-col><span><b>Nacionalidad:</b> Español</span></v-col>
-            <v-col><span><b>Nacionalidad:</b> Español</span></v-col>
-          </v-row>
+            <v-col xs="12" sm="4">
+              <v-card class="pa-3 d-flex flex-column">
+                <span class="subtitle-2 font-weight-regular my-1"><b>Lugar de Nac:</b> España</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Nac:</b> 23/11/1992</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>DNI (ESP):</b> 55445566D</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Tarjeta Res (ESP):</b> 2343123T</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Pasaporte:</b> X8203A84-T</span>
+              </v-card>
+            </v-col>
+            <v-col xs="12" sm="4">
+              <v-card class="pa-3 d-flex flex-column">
+                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Llegada España:</b> 14/10/2019</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Primera Asistencia:</b> 22/11/22019</span>
+              </v-card>
+            </v-col>
+            <v-col xs="12" sm="4">
+              <v-card class="pa-3">
+                <span class="subtitle-2 font-weight-regular"><b>Nacionalidad:</b> Español</span>
+              </v-card>
+            </v-col>          </v-row>
           <v-btn class="ma-7" small @click="masInfo">Más Info</v-btn>
           <v-card>
             <v-simple-table>
               <template v-slot:default>
                 <thead>
                   <tr>
-                    <th class="text-center">Fecha</th>
-                    <th class="text-center">Detalles de llamada</th>
+                    <th class="text-center teal lighten-4">Fecha</th>
+                    <th class="text-center teal lighten-4">Detalles de llamada</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -83,6 +112,7 @@
 export default {
   name: 'Dashboard',
   data: () => ({
+    dialog: false,
     edad: null,
     nombre: null,
     data: [
