@@ -15,7 +15,7 @@
           
             <v-card-title>Iniciar Sesión</v-card-title>
             <v-row>
-              <v-btn class="white pa-6 my-7">
+              <v-btn class="white pa-6 my-7" @click="signInGoogle">
                 <v-img src="@/assets/btn_google_light_normal_ios.svg"></v-img>Google
               </v-btn>
             </v-row>
@@ -26,8 +26,8 @@
               outlined
               placeholder="Usuario"
               append-icon="mdi-account"
-              :success="user.length > 0"
-              v-model="user"
+              :success="email.length > 0"
+              v-model="email"
               ></v-text-field>
 
             <v-text-field
@@ -49,16 +49,16 @@
     </div>
     </v-img>
 
-    <div class="video">
-      <div class="video-texto">
+    <div class="video-container">
+      <video ref="videoRef" src="" muted loop></video>
+      <div class="texto">
         <h1>Te</h1>
         <h1>podemos</h1>
         <h1>ayudar</h1>
       </div>
-      <video class="video player" ref="videoRef" src="" muted loop></video>
     </div>
 
-    <v-timeline>
+    <v-timeline class="my-7">
       <v-timeline-item
         v-for="(year, i) in years"
         :key="i"
@@ -112,8 +112,8 @@
   export default {
     name: 'Home',
     data: () => ({
-      years: [ { color: 'cyan', year: '2001', }, { color: 'blue', year: '2010', }, { color: 'purple', year: '2015', }, { color: 'red', year: '2018', } ],
-      user: 'invitado@gmail.com',
+      years: [ { color: 'blue', year: '2001', }, { color: 'blue', year: '2010', }, { color: 'purple', year: '2015', }, { color: 'red', year: '2018', } ],
+      email: 'principal@madrina.com',
       password: '123456',
       eyeIcon: false,
       icons: [ { color: 'indigo', icon: 'mdi-facebook' }, { color: 'blue', icon: 'mdi-twitter' }, {color: 'orange', icon: 'mdi-instagram'} ]
@@ -127,7 +127,22 @@
         this.$refs.videoRef.play();
       },
       signIn() {
-        this.$router.push({name: 'Dashboard'})
+        auth.signInWithEmailAndPassword(this.email, this.password)
+          .then(res => {
+            this.$router.push({name: 'Dashboard'})
+          })
+          .catch(error => {
+            console.log(error.message)
+          })
+      },
+      signInGoogle() {
+        auth.signInWithPopup(google)
+          .then(res => {
+            this.$router.push({name: 'Dashboard'})
+          })
+          .catch(error => {
+            console.log(error)
+          })
       }
     }
   }
@@ -155,15 +170,20 @@
     position: absolute;
     width: 100%;
   }
-  .video {
-    width: 100vw;
+  .video-container {
+    height: 100vh;
+    overflow: hidden;
     position: relative;
+    width: 100vw;
   }
-  .player {
-    height: 100%;
+  .video-container video {
+    left: 0;
+    min-height: 100vh;
+    position: absolute;
+    top: 0;
   }
-  .video-texto {
-    background-color: rgba(0, 0, 0, 0.2);
+  .texto {
+    background-color: rgba(0, 0, 0, 0.1);
     color: white;
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
@@ -173,24 +193,23 @@
     position: absolute;
     top: 0;
     width: 100%;
-    z-index: 1;
   }
-  .video-texto h1 {
+  .texto h1 {
     color: rgba(255, 255, 255, 0.6);
-    font-size: calc(3em + 3vw);
+    font-size: calc(2em + 3vw);
     justify-self: center;
   }
-  .video-texto h1:nth-of-type(1) {
+  .texto h1:nth-of-type(1) {
     align-self: end;
     grid-column: 1/2;
     grid-row: 1/2;
   }
-  .video-texto h1:nth-of-type(2) {
+  .texto h1:nth-of-type(2) {
     align-self: center;
     grid-column: 2/3;
     grid-row: 2/3;
   }
-  .video-texto h1:nth-of-type(3) {
+  .texto h1:nth-of-type(3) {
     align-self: start;
     grid-row: 3/4;
     grid-column: 3/4;

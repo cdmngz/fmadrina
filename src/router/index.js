@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { auth } from '../main'
 
 Vue.use(VueRouter)
 
@@ -12,12 +13,14 @@ Vue.use(VueRouter)
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import('../views/Dashboard.vue')
+    component: () => import('../views/Dashboard.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/detalles',
     name: 'Detalles',
-    component: () => import('../views/Detalles.vue')
+    component: () => import('../views/Detalles.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/perfil',
@@ -30,6 +33,18 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const reqAuth = to.matched.some(record => record.meta.requiresAuth)
+  const isAuth = auth.currentUser
+  if(reqAuth && !isAuth) {
+    next('/')
+  } else if(reqAuth===false && isAuth) {
+    next('/dashboard')
+  } else {
+    next()
+  }
 })
 
 export default router

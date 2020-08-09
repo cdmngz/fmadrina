@@ -33,7 +33,7 @@
             <v-btn text><span class="mr-2">Perfil</span></v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn text to="/"><span class="mr-2">Cerrar Sesión</span></v-btn>
+            <v-btn text @click="signOut"><span class="mr-2">Cerrar Sesión</span></v-btn>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -45,8 +45,10 @@
   </v-app>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
+<script>
+  import Vue from 'vue'
+  import { auth } from './main'
+
 
 export default Vue.extend({
   name: 'App',
@@ -54,6 +56,17 @@ export default Vue.extend({
     currentRouteName() {
       return this.$route.name
     }
+  },
+  methods: {
+    signOut() {
+      auth.signOut()
+        .then(
+          this.$router.go()
+        )
+        .catch(error => {
+          console.log(error)
+        })
+    }
   }
-});
+})
 </script>

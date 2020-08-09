@@ -5,8 +5,8 @@
       <v-row>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" width="500">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn fab small depressed class="teal lighten-4" dark v-on="on" v-bind="attrs"><v-icon>mdi-plus</v-icon></v-btn>
+        <template v-slot:activator="{ on }">
+          <v-btn fab small depressed class="teal lighten-4" dark v-on="on"><v-icon>mdi-plus</v-icon></v-btn>
         </template>
 
         <v-card>
@@ -14,7 +14,11 @@
             Agregar Persona
           </v-card-title>
 
+          <v-text-field type="file" label="Escoger Foto" class="mx-10 my-2"></v-text-field>
           <v-text-field type="text" label="Nombre" class="mx-10 my-2"></v-text-field>
+          <v-text-field type="text" label="Primer Apellido" class="mx-10 my-2"></v-text-field>
+          <v-text-field type="text" label="Segundo Apellido" class="mx-10 my-2"></v-text-field>
+          <v-text-field type="date" label="Fecha de Nacimiento" class="mx-10 my-2"></v-text-field>
   
           <v-divider></v-divider>
     
@@ -26,7 +30,7 @@
       </v-card>
     </v-dialog>
       </v-row>
-      <v-row>
+      <v-row cols="12">
         <v-col xs="12" md="3">
           <v-text-field label="Indetificación" prepend-icon="mdi-card-account-details"></v-text-field>
         </v-col>
@@ -59,45 +63,103 @@
           <v-row cols="12">
             <v-col xs="12" sm="4">
               <v-card class="pa-3 d-flex flex-column">
-                <span class="subtitle-2 font-weight-regular my-1"><b>Lugar de Nac:</b> España</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Nac:</b> 23/11/1992</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>DNI (ESP):</b> 55445566D</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Tarjeta Res (ESP):</b> 2343123T</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Ciudad de Nacimiento:</b> Buzios</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>País de Nacimiento:</b> Brasil</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Documento:</b> 19340444</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Pasaporte:</b> X8203A84-T</span>
               </v-card>
             </v-col>
             <v-col xs="12" sm="4">
               <v-card class="pa-3 d-flex flex-column">
+                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Nacimiento:</b> 23/11/1992</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Llegada España:</b> 14/10/2019</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Primera Asistencia:</b> 22/11/22019</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Alta Fundación:</b> 22/11/22019</span>
               </v-card>
             </v-col>
             <v-col xs="12" sm="4">
               <v-card class="pa-3">
                 <span class="subtitle-2 font-weight-regular"><b>Nacionalidad:</b> Español</span>
+                <span class="subtitle-2 font-weight-regular"><b>Hijos:</b> 0</span>
               </v-card>
-            </v-col>          </v-row>
-          <v-btn class="ma-7" small @click="masInfo">Más Info</v-btn>
-          <v-card>
+            </v-col>
+          </v-row>
+
+          <v-btn class="mt-7" small @click="masInfo">Más Info</v-btn>
+          
+          <v-card class="mt-7">
             <v-simple-table>
-              <template v-slot:default>
                 <thead>
-                  <tr>
-                    <th class="text-center teal lighten-4">Fecha</th>
-                    <th class="text-center teal lighten-4">Detalles de llamada</th>
+                  <tr class="teal lighten-5">
+                    <th class="text-center">Fecha</th>
+                    <th class="text-center">Últimos Avances</th>
+                    <th class="text-right">
+                      <v-btn fab small depressed text v-on="on"><v-icon color="teal lighten-3">mdi-plus</v-icon></v-btn>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>12/07/2020</td>
-                    <td>Buscando información sobre asistencia.</td>
+                    <td>02/08/2020</td>
+                    <td>Se aprobó la tarjeta de residencia.</td>
+                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
+                  </tr>
+                  <tr>
+                    <td>18/07/2020</td>
+                    <td>Se gestiona con abogado tarjeta de residencia.</td>
+                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
+                  </tr>
+                  <tr>
+                    <td>11/05/2020</td>
+                    <td>Esperando que pase la cuarentena para aplicar tarjeta de residencia.</td>
+                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
+                  </tr>
+                </tbody>
+            </v-simple-table>
+          </v-card>
+          <v-card class="mt-7">
+            <v-simple-table>
+                <thead>
+                  <tr class="teal lighten-4">
+                    <th class="text-center">Fecha</th>
+                    <th class="text-center">Asistencia entrega de alimentos</th>
+                    <th class="text-right"><v-btn fab small depressed text dark v-on="on"><v-icon>mdi-plus</v-icon></v-btn></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>12/08/2020</td>
+                    <td>Asistencia para la entrega de alimentos en la sede del banco de bebé.</td>
+                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
+                  </tr>
+                  <tr>
+                    <td>05/08/2020</td>
+                    <td>Asistencia para la entrega de alimentos en la sede del banco de bebé.</td>
+                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
+                  </tr>
+                </tbody>
+            </v-simple-table>
+          </v-card>
+          <v-card class="my-7">
+            <v-simple-table>
+                <thead>
+                  <tr class="teal lighten-3">
+                    <th class="text-center">Fecha</th>
+                    <th class="text-center">Detalles de llamada telefónica</th>
+                    <th class="text-right"><v-btn fab small depressed text dark v-on="on"><v-icon>mdi-plus</v-icon></v-btn></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>08/02/2020</td>
+                    <td>Se procede a orientarlo y que asista a la sede.</td>
+                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
                   </tr>
                   <tr>
                     <td>22/01/2020</td>
-                    <td>Averiguando sobre un tema en particular.</td>
+                    <td>Comenta que tiene un inconveniente por el cual necesita ayuda.</td>
+                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
                   </tr>
                 </tbody>
-              </template>
             </v-simple-table>
           </v-card>
             
