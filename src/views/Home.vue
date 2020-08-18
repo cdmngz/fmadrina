@@ -4,7 +4,7 @@
     <v-img
       height="100vh"
       alt="https://www.instagram.com/osenb/"
-      src="@/assets/plantica.jpg"
+      src="@/assets/cora.jpg"
     >
     <div class="section-1">  
       <aside></aside>
@@ -73,7 +73,7 @@
           ></span>
         </template>
         <div :class="i%2===0 ? 'd-flex flex-column' : 'd-flex flex-column align-end'">
-          <h2 :class="`headline font-weight-light mb-4 ${year.color}--text`">Título {{i+1}}</h2>
+          <h2 :class="`headline font-weight-light mb-1 ${year.color}--text`">Título {{i+1}}</h2>
           <p style="text-align: justify; width: 35vw; color: #666">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit doloribus voluptas repudiandae culpa itaque modi debitis vero distinctio qui perspiciatis ad quis maiores neque dolore veritatis, eveniet aperiam mollitia officiis.</p>
         </div>
       </v-timeline-item>
@@ -99,7 +99,7 @@
       <v-card-text class="pt-0">Nos puedes contactar a través de nuestras redes.</v-card-text>
       <v-divider></v-divider>
       <v-card-text>
-        {{ new Date().getFullYear() }} — <strong>Fundación Madrid</strong>
+        {{ new Date().getFullYear() }} — <strong>Fundación Madrina</strong>
       </v-card-text>
     </v-card>
   </v-footer>
@@ -165,7 +165,7 @@
   }
   .section-1 aside {
     background-color: rgba(0,0,0,0.2);
-    clip-path: polygon(50% 0, 100% 0%, 100% 100%, 35% 100%);
+    clip-path: polygon(55% 0, 100% 0%, 100% 100%, 40% 100%);
     height: 100%;
     position: absolute;
     width: 100%;
