@@ -1,44 +1,80 @@
 <template>
   <div class="pa-12">
 
+    <v-dialog v-model="dialogFormularioPersona" width="60vw">
+      <v-card class="pa-8">
+        <v-card-title class="headline teal lighten-5">Asistente de la Fundación</v-card-title>
+        <v-text-field type="text" v-model="formulario_persona.nombre" label="Nombre" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="text" v-model="formulario_persona.apellido1" label="Primer Apellido" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="text" v-model="formulario_persona.apellido2" label="Segundo Apellido" class="mx-10 my-2"></v-text-field>
+        <v-radio-group v-model="formulario_persona.sexo" class="mx-10 my-2">
+          <v-radio label="Masculino" value="M"></v-radio>
+          <v-radio label="Femenino" value="F"></v-radio>
+        </v-radio-group>         
+        <v-text-field type="number" v-model="formulario_persona.edad" label="Edad" class="mx-10 my-2"></v-text-field>
+        <v-select :items="['Líbano','Venezuela', 'República Dominicana']" v-model="formulario_persona.paisNac" label="País de Nacimiento" class="mx-10 my-2"></v-select>
+        <v-select :items="['Maracaibo','Caracas', 'Santo Domingo']" v-model="formulario_persona.ciudadNac" label="Ciudad de Nacimiento" class="mx-10 my-2"></v-select>
+        <v-text-field type="text" v-model="formulario_persona.idNac" label="Identificación País Origen" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="text" v-model="formulario_persona.pasaporteNac" label="Pasaporte País Origen" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="mail" v-model="formulario_persona.mail" label="Mail" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="date" v-model="formulario_persona.fechaNac" label="Fecha de Nacimiento" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="date" v-model="formulario_persona.llegadaEsp" label="Fecha llegada España" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="date" v-model="formulario_persona.altaFund" label="Fecha alta en fundación" class="mx-10 my-2"></v-text-field>
+        <v-select :items="['DNI','Pasaporte','Tarjeta Residencia']" v-model="formulario_persona.tipoDoc" label="Tipo de Documento en España" class="mx-10 my-2"></v-select>
+        <v-text-field type="text" v-model="formulario_persona.numDoc" label="Número de Doc en España" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="text" v-model="formulario_persona.direccion" label="Dirección" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="number" v-model="formulario_persona.telefono" label="Teléfono" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="number" v-model="formulario_persona.hijos" label="Hijos" class="mx-10 my-2"></v-text-field>
+        <v-card-actions>
+          <v-btn v-if="formulario_persona.accion!==1" color="primary" text @click="eliminar()">Dar de Baja</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="error" text @click="cancelar()">Cancelar</v-btn>
+          <v-btn color="success" text @click="guardar()">Guardar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="dialogNews" width="60vw">
+      <v-card class="pa-8">
+        <v-card-title class="headline teal lighten-5">Últimos Avances</v-card-title>
+        <v-text-field type="date" label="Fecha" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="text" label="Último Avance" class="mx-10 my-2"></v-text-field>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="error" text @click="dialogNews=false">Cancelar</v-btn>
+          <v-btn color="success" text @click="dialogNews=false">Guardar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="dialogAsistenciaAlimentos" width="60vw">
+      <v-card class="pa-8">
+        <v-card-title class="headline teal lighten-5">Asistencia Entrega de Alimentos</v-card-title>
+        <v-text-field type="date" label="Fecha" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="text" label="Razón" value="Entrega de alimentos en la sede del banco de bebé." class="mx-10 my-2"></v-text-field>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="error" text @click="dialogAsistenciaAlimentos=false">Cancelar</v-btn>
+          <v-btn color="success" text @click="dialogAsistenciaAlimentos=false">Guardar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="dialogCallCenter" width="60vw">
+      <v-card class="pa-8">
+        <v-card-title class="headline teal lighten-5">Detalles de Llamada Telefónica</v-card-title>
+        <v-text-field type="date" label="Fecha" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="text" label="Info" class="mx-10 my-2"></v-text-field>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="error" text @click="dialogCallCenter=false">Cancelar</v-btn>
+          <v-btn color="success" text @click="dialogCallCenter=false">Guardar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-card class="mb-8 pa-7">
       <v-row>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" width="60vw">
-          <template v-slot:activator="{ on }">
-            <v-btn fab small depressed class="teal lighten-4" dark v-on="on"><v-icon>mdi-plus</v-icon></v-btn>
-          </template>
-
-          <v-card class="pa-8">
-            <v-card-title class="headline teal lighten-5">Agregar Persona</v-card-title>
-            <v-text-field type="text" v-model="formulario_persona.nombre" label="Nombre" class="mx-10 my-2"></v-text-field>
-            <v-text-field type="text" v-model="formulario_persona.apellido1" label="Primer Apellido" class="mx-10 my-2"></v-text-field>
-            <v-text-field type="text" v-model="formulario_persona.apellido2" label="Segundo Apellido" class="mx-10 my-2"></v-text-field>
-            <v-radio-group v-model="formulario_persona.sexo" class="mx-10 my-2">
-              <v-radio label="Masculino" value="M"></v-radio>
-              <v-radio label="Femenino" value="F"></v-radio>
-            </v-radio-group>         
-            <v-text-field type="number" v-model="formulario_persona.edad" label="Edad" class="mx-10 my-2"></v-text-field>
-            <v-select :items="['Líbano','Venezuela', 'República Dominicana']" v-model="formulario_persona.paisNac" label="País de Nacimiento" class="mx-10 my-2"></v-select>
-            <v-select :items="['Maracaibo','Caracas', 'Santo Domingo']" v-model="formulario_persona.ciudadNac" label="Ciudad de Nacimiento" class="mx-10 my-2"></v-select>
-            <v-text-field type="text" v-model="formulario_persona.idNac" label="Identificación País Origen" class="mx-10 my-2"></v-text-field>
-            <v-text-field type="text" v-model="formulario_persona.pasaporteNac" label="Pasaporte País Origen" class="mx-10 my-2"></v-text-field>
-            <v-text-field type="mail" v-model="formulario_persona.mail" label="Mail" class="mx-10 my-2"></v-text-field>
-            <v-text-field type="date" v-model="formulario_persona.fechaNac" label="Fecha de Nacimiento" class="mx-10 my-2"></v-text-field>
-            <v-text-field type="date" v-model="formulario_persona.llegadaEsp" label="Fecha llegada España" class="mx-10 my-2"></v-text-field>
-            <v-text-field type="date" v-model="formulario_persona.altaFund" label="Fecha alta en fundación" class="mx-10 my-2"></v-text-field>
-            <v-select :items="['DNI','Pasaporte','Tarjeta Residencia']" v-model="formulario_persona.tipoDoc" label="Tipo de Documento en España" class="mx-10 my-2"></v-select>
-            <v-text-field type="text" v-model="formulario_persona.numDoc" label="Número de Doc en España" class="mx-10 my-2"></v-text-field>
-            <v-text-field type="text" v-model="formulario_persona.direccion" label="Dirección" class="mx-10 my-2"></v-text-field>
-            <v-text-field type="number" v-model="formulario_persona.telefono" label="Teléfono" class="mx-10 my-2"></v-text-field>
-            <v-text-field type="number" v-model="formulario_persona.hijos" label="Hijos" class="mx-10 my-2"></v-text-field>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="error" text @click="dialog = false">Cancelar</v-btn>
-              <v-btn color="success" text @click="[dialog=false, guardar()]">Guardar</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+        <v-btn fab small depressed class="teal lighten-4" dark @click="dialogFormularioPersona = true"><v-icon>mdi-plus</v-icon></v-btn>
       </v-row>
 
       <v-row cols="12">
@@ -95,7 +131,8 @@
             </v-col>
           </v-row>
 
-          <v-btn class="mt-7" small @click="masInfo(persona.docid)">Más Info</v-btn>
+          <v-btn class="mt-4 mx-2 teal lighten-5" depressed small @click="masInfo(persona.docid)">Más Info</v-btn>
+          <v-btn class="mt-4 mx-2 teal lighten-5" depressed small @click="editar(i)">Editar</v-btn>
           
           <v-card class="mt-7">
             <v-simple-table>
@@ -103,9 +140,7 @@
                   <tr class="teal lighten-5">
                     <th class="text-center">Fecha</th>
                     <th class="text-center">Últimos Avances</th>
-                    <th class="text-right">
-                      <v-btn fab small depressed text v-on="on"><v-icon color="teal lighten-3">mdi-plus</v-icon></v-btn>
-                    </th>
+                    <th class="text-right"><v-btn fab small depressed text @click="dialogNews=true"><v-icon color="teal lighten-3">mdi-plus</v-icon></v-btn></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -133,7 +168,7 @@
                   <tr class="teal lighten-4">
                     <th class="text-center">Fecha</th>
                     <th class="text-center">Asistencia entrega de alimentos</th>
-                    <th class="text-right"><v-btn fab small depressed text dark v-on="on"><v-icon>mdi-plus</v-icon></v-btn></th>
+                    <th class="text-right"><v-btn fab small depressed text dark @click="dialogAsistenciaAlimentos=true"><v-icon>mdi-plus</v-icon></v-btn></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -156,7 +191,7 @@
                   <tr class="teal lighten-3">
                     <th class="text-center">Fecha</th>
                     <th class="text-center">Detalles de llamada telefónica</th>
-                    <th class="text-right"><v-btn fab small depressed text dark v-on="on"><v-icon>mdi-plus</v-icon></v-btn></th>
+                    <th class="text-right"><v-btn fab small depressed text dark @click="dialogCallCenter=true"><v-icon>mdi-plus</v-icon></v-btn></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -188,7 +223,10 @@ import { auth, db } from '../main'
 export default {
   name: 'Dashboard',
   data: () => ({
-    dialog: false,
+    dialogFormularioPersona: false,
+    dialogNews: false,
+    dialogAsistenciaAlimentos: false,
+    dialogCallCenter: false,
     filtro: {
       edad: null,
       nombre: null,
@@ -197,25 +235,46 @@ export default {
     },
     on: false,
     formulario_persona: {
-        accion: 1,
-        nombre: '',
-        apellido1: '',
-        apellido2: '',
-        sexo: '',
-        edad: 0,
-        paisNac: '',
-        ciudadNac: '',
-        idNac: '',
-        pasaporteNac: '',
-        mail: '',
-        fechaNac: '',
-        llegadaEsp: '',
-        altaFund: '',
-        tipoDoc: '',
-        numDoc: '',
-        direccion: '',
-        telefono: 634000000,
-        hijos: 0,
+      accion: 1,
+      nombre: '',
+      apellido1: '',
+      apellido2: '',
+      sexo: '',
+      edad: 0,
+      paisNac: '',
+      ciudadNac: '',
+      idNac: '',
+      pasaporteNac: '',
+      mail: '',
+      fechaNac: '',
+      llegadaEsp: '',
+      altaFund: '',
+      tipoDoc: '',
+      numDoc: '',
+      direccion: '',
+      telefono: 0,
+      hijos: 0,
+    },
+    formulario_vacio: {
+      accion: 1,
+      nombre: '',
+      apellido1: '',
+      apellido2: '',
+      sexo: '',
+      edad: 0,
+      paisNac: '',
+      ciudadNac: '',
+      idNac: '',
+      pasaporteNac: '',
+      mail: '',
+      fechaNac: '',
+      llegadaEsp: '',
+      altaFund: '',
+      tipoDoc: '',
+      numDoc: '',
+      direccion: '',
+      telefono: 0,
+      hijos: 0,
     },
   }),
   mounted() {
@@ -228,7 +287,7 @@ export default {
       this.filtro.nombre ? final = final.filter(element => element.nombre.includes(this.filtro.nombre)) : null;
       this.filtro.pais ? final = final.filter(element => element.paisNac.includes(this.filtro.pais)) : null;
       this.filtro.edad ? final = final.filter(element => element.edad === this.filtro.edad) : null;
-      this.filtro.hijos ? final = final.filter(element => element.hijos === this.filtro.hijos) : null;
+      this.filtro.hijos ? final = final.filter(element => element.hijos == this.filtro.hijos) : null;
       return final
     }
   },
@@ -262,43 +321,56 @@ export default {
         hijos: this.formulario_persona.hijos,
         usuario_creado: auth.currentUser.uid
       })
-        .then(res => this.data.push({
-          docid: res.id,
-          fecha_creado: new Date(),
-          nombre: this.formulario_persona.nombre,
-          apellido1: this.formulario_persona.apellido1,
-          apellido2: this.formulario_persona.apellido2,
-          sexo: this.formulario_persona.sexo,
-          edad: this.formulario_persona.edad,
-          paisNac: this.formulario_persona.paisNac,
-          ciudadNac: this.formulario_persona.ciudadNac,
-          idNac: this.formulario_persona.idNac,
-          pasaporteNac: this.formulario_persona.pasaporteNac,
-          mail: this.formulario_persona.mail,
-          fechaNac: this.formulario_persona.fechaNac,
-          llegadaEsp: this.formulario_persona.llegadaEsp,
-          altaFund: this.formulario_persona.altaFund,
-          tipoDoc: this.formulario_persona.tipoDoc,
-          numDoc: this.formulario_persona.numDoc,
-          direccion: this.formulario_persona.direccion,
-          telefono: this.formulario_persona.telefono,
-          hijos: this.formulario_persona.hijos,
-          usuario_creado: auth.currentUser.uid
-        }))
+        .then(res => {
+          this.data.push({
+            docid: res.id,
+            fecha_creado: new Date(),
+            nombre: this.formulario_persona.nombre,
+            apellido1: this.formulario_persona.apellido1,
+            apellido2: this.formulario_persona.apellido2,
+            sexo: this.formulario_persona.sexo,
+            edad: this.formulario_persona.edad,
+            paisNac: this.formulario_persona.paisNac,
+            ciudadNac: this.formulario_persona.ciudadNac,
+            idNac: this.formulario_persona.idNac,
+            pasaporteNac: this.formulario_persona.pasaporteNac,
+            mail: this.formulario_persona.mail,
+            fechaNac: this.formulario_persona.fechaNac,
+            llegadaEsp: this.formulario_persona.llegadaEsp,
+            altaFund: this.formulario_persona.altaFund,
+            tipoDoc: this.formulario_persona.tipoDoc,
+            numDoc: this.formulario_persona.numDoc,
+            direccion: this.formulario_persona.direccion,
+            telefono: this.formulario_persona.telefono,
+            hijos: this.formulario_persona.hijos,
+            usuario_creado: auth.currentUser.uid
+          })
+          this.formulario_persona = this.formulario_vacio
+        } 
+        )
           .catch(e => console.log("Error creando el dato: ", e.message))
+    },
+    editar(value) {
+      this.dialogFormularioPersona = true
+      this.formulario_persona = this.lista_personas[value]
     },
     guardar() {
       if (this.formulario_persona.accion !== 1) {
-        this.arrayTable[this.editedIndex].feel = this.editedItem.feel
-        this.arrayTable[this.editedIndex].text = this.editedItem.text
-        this.arrayTable[this.editedIndex].act = this.editedItem.act
-        this.editarDato(this.editedItem)
+        // this.arrayTable[this.editedIndex].feel = this.editedItem.feel
+        // this.arrayTable[this.editedIndex].text = this.editedItem.text
+        // this.arrayTable[this.editedIndex].act = this.editedItem.act
+        // this.editarDato(this.editedItem)
+        console.log('Toca editar')
+        this.formulario_persona = this.formulario_vacio
       } else {
         this.crearDato()
-        console.log('crear dato')
       }
-      this.dialog = false
+      this.dialogFormularioPersona = false
     },
+    cancelar() {
+      this.dialogFormularioPersona = false
+      this.formulario_persona = this.formulario_vacio
+    }
   }
 }
 </script>
