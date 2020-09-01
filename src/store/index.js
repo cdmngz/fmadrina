@@ -13,7 +13,7 @@ export default new Vuex.Store({
   mutations: {
     async obtenerDatos(state) {
       state.data = []
-      await db.collection("personas").get()
+      await db.collection("personas").orderBy("apellido1").get()
         .then(querySnapshot => querySnapshot.forEach(doc => {
           state.data.push({
             docid: doc.id,

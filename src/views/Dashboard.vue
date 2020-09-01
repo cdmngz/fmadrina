@@ -12,7 +12,7 @@
           <v-radio label="Femenino" value="F"></v-radio>
         </v-radio-group>         
         <v-text-field type="number" v-model="formulario_persona.edad" label="Edad" class="mx-10 my-2"></v-text-field>
-        <v-select :items="['Líbano','Venezuela', 'República Dominicana']" v-model="formulario_persona.paisNac" label="País de Nacimiento" class="mx-10 my-2"></v-select>
+        <v-select :items="['','Líbano','Venezuela', 'República Dominicana']" v-model="formulario_persona.paisNac" label="País de Nacimiento" class="mx-10 my-2"></v-select>
         <v-select :items="['Maracaibo','Caracas', 'Santo Domingo']" v-model="formulario_persona.ciudadNac" label="Ciudad de Nacimiento" class="mx-10 my-2"></v-select>
         <v-text-field type="text" v-model="formulario_persona.idNac" label="Identificación País Origen" class="mx-10 my-2"></v-text-field>
         <v-text-field type="text" v-model="formulario_persona.pasaporteNac" label="Pasaporte País Origen" class="mx-10 my-2"></v-text-field>
@@ -34,91 +34,73 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="dialogNews" width="60vw">
-      <v-card class="pa-8">
-        <v-card-title class="headline teal lighten-5">Últimos Avances</v-card-title>
-        <v-text-field type="date" label="Fecha" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="text" label="Último Avance" class="mx-10 my-2"></v-text-field>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="error" text @click="dialogNews=false">Cancelar</v-btn>
-          <v-btn color="success" text @click="dialogNews=false">Guardar</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="dialogAsistenciaAlimentos" width="60vw">
-      <v-card class="pa-8">
-        <v-card-title class="headline teal lighten-5">Asistencia Entrega de Alimentos</v-card-title>
-        <v-text-field type="date" label="Fecha" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="text" label="Razón" value="Entrega de alimentos en la sede del banco de bebé." class="mx-10 my-2"></v-text-field>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="error" text @click="dialogAsistenciaAlimentos=false">Cancelar</v-btn>
-          <v-btn color="success" text @click="dialogAsistenciaAlimentos=false">Guardar</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="dialogCallCenter" width="60vw">
-      <v-card class="pa-8">
-        <v-card-title class="headline teal lighten-5">Detalles de Llamada Telefónica</v-card-title>
-        <v-text-field type="date" label="Fecha" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="text" label="Info" class="mx-10 my-2"></v-text-field>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="error" text @click="dialogCallCenter=false">Cancelar</v-btn>
-          <v-btn color="success" text @click="dialogCallCenter=false">Guardar</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-card class="mb-8 pa-7">
+    <!-- Botón agregar -->
+    <v-card class="mb-8 pa-6">
       <v-row>
         <v-spacer></v-spacer>
-        <v-btn fab small depressed class="teal lighten-4" dark @click="dialogFormularioPersona = true"><v-icon>mdi-plus</v-icon></v-btn>
+        <v-btn
+          fab
+          x-small
+          depressed
+          class="teal lighten-3"
+          dark
+          @click="dialogFormularioPersona = true"
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
       </v-row>
 
+      <!-- Filtros -->
       <v-row cols="12">
-        <v-col xs="12" md="2"><v-text-field label="Indetificación" prepend-icon="mdi-card-account-details-outline"></v-text-field></v-col>
-        <v-col xs="12" md="2"><v-text-field v-model="filtro.nombre" label="Nombre" prepend-icon="mdi-account-outline"></v-text-field></v-col>
-        <v-col xs="12" md="2"><v-select v-model="filtro.pais" :items="['Líbano','Venezuela', 'Rep. Dom.']" label="País de Nacimiento" prepend-icon="mdi-flag-outline"></v-select></v-col>
-        <v-col xs="12" md="2"><v-text-field v-model="filtro.edad" label="Edad" prepend-icon="mdi-calendar-account-outline"></v-text-field></v-col>
-        <v-col xs="12" md="2"><v-text-field v-model="filtro.hijos" label="Hijos" prepend-icon="mdi-account-multiple-outline"></v-text-field></v-col>
+        <v-col xs="12" md="3"><v-text-field v-model="filtro.id" label="ID, Pasaporte o Telf" prepend-icon="mdi-card-account-details-outline"></v-text-field></v-col>
+        <v-col xs="12" md="3"><v-text-field v-model="filtro.nombre" label="Nombre" prepend-icon="mdi-account-outline"></v-text-field></v-col>
+        <v-col xs="12" md="3"><v-select v-model="filtro.pais" :items="paises" label="País de Nacimiento" prepend-icon="mdi-flag-outline"></v-select></v-col>
+        <v-col xs="12" md="3"><v-text-field v-model="filtro.edad" label="Edad" prepend-icon="mdi-calendar-account-outline"></v-text-field></v-col>
+        <v-col xs="12" md="3"><v-text-field v-model="filtro.hijos" label="Hijos" prepend-icon="mdi-account-multiple-outline"></v-text-field></v-col>
       </v-row>
     </v-card>
 
+    <!-- Panel Acordion -->
     <v-expansion-panels accordion multiple>
       <v-expansion-panel
         v-for="(persona, i) in lista_personas"
         :key="i"
-        :class="i%2===0 ? 'white' : 'teal lighten-5'"
-      >
+        :class="i%2 === 0 ? 'white' : 'teal lighten-5'"
+        >
         <v-expansion-panel-header>
-          <v-avatar size="50">
-            <img :src="persona.sexo === 'M' ? require(`../assets/MVitalyGorbachev.svg`) : require(`../assets/FVitalyGorbachev.svg`)">
-          </v-avatar>
-          <span>{{persona.apellido1}} {{persona.apellido2}}, {{persona.nombre}}</span>
-          <span>{{persona.edad}} años</span>
+          <v-row cols="12">
+            <v-col xs="12" sm="1" class="my-n1 ml-14"><span>{{i+1}}.</span></v-col>
+            <v-col xs="12" sm="3" class="ma-n3"><v-avatar tile size="33"><img :src="persona.sexo === 'M' ? require(`../assets/MVitalyGorbachev.svg`) : require(`../assets/FVitalyGorbachev.svg`)"></v-avatar></v-col>
+            <v-col xs="12" sm="4" class="my-n1"><span>{{persona.apellido1}} {{persona.apellido2}}, {{persona.nombre}}</span></v-col>
+            <v-col xs="12" sm="3" class="my-n1"><span>{{persona.edad}} años</span></v-col>
+          </v-row>
         </v-expansion-panel-header>
+        <!-- Panel Cuerpo -->
         <v-expansion-panel-content class="text-center">
+          <!-- <pre style="font-size: 14px; text-align: left; background-color: #333; color: #5F8">{{persona}}</pre> -->
           <v-row cols="12">
             <v-col xs="12" sm="4">
               <v-card class="pa-3 d-flex flex-column">
                 <v-card-subtitle class="font-weight-bold text-decoration-underline">Origen</v-card-subtitle>
-                <span class="subtitle-2 font-weight-regular my-1"><b>País de Nacimiento: </b>{{persona.paisNac}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Ciudad de Nacimiento: </b>{{persona.ciudadNac}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Identificación: </b>{{persona.idNac}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>País de Origen: </b>{{persona.paisNac}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Ciudad de Origen: </b>{{persona.ciudadNac}}</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Pasaporte: </b>{{persona.pasaporteNac}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>ID Origen: </b>{{persona.idNac}}</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Mail: </b>{{persona.mail}}</span>
               </v-card>
             </v-col>
             <v-col xs="12" sm="4">
               <v-card class="pa-3 d-flex flex-column">
                 <v-card-subtitle class="font-weight-bold text-decoration-underline">España</v-card-subtitle>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Número de Documento: </b>{{persona.numDoc}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Tipo de Documento: </b>{{persona.tipoDoc}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Núm de Documento: </b>{{persona.numDoc}}</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Dirección: </b>{{persona.direccion}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Cod. Postal: </b>28010</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Teléfono: </b>{{persona.telefono}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Hijos: </b>{{persona.hijos}}</span>
+                <span class="subtitle-2 font-weight-regular my-1">
+                  <b>Hijos: </b>{{persona.hijos}}
+                  <v-btn depressed x-small color="teal lighten-5"><v-icon color="grey darken-2" small>mdi-plus</v-icon></v-btn> 
+                  <v-btn v-show="persona.hijos > 0" @click="hijos = !hijos" depressed x-small color="teal lighten-5" class="ml-1"><v-icon color="grey darken-1" small>mdi-eye</v-icon></v-btn>
+                </span>
               </v-card>
             </v-col>
             <v-col xs="12" sm="4">
@@ -127,87 +109,21 @@
                 <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Nacimiento: </b>{{persona.fechaNac}}</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Llegada España: </b>{{persona.llegadaEsp}}</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Alta Fundación: </b>{{persona.altaFund}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Alguna Fecha Adicional: </b>{{persona.altaFund}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Segunda Fecha Adicional: </b>{{persona.altaFund}}</span>
               </v-card>
             </v-col>
           </v-row>
 
-          <v-btn class="mt-4 mx-2 teal lighten-5" depressed small @click="masInfo(persona.docid)">Más Info</v-btn>
-          <v-btn class="mt-4 mx-2 teal lighten-5" depressed small @click="editar(i)">Editar</v-btn>
+          <Hijos v-show="hijos" :docid="persona.docid" />
+
+          <v-btn class="mt-4 mx-1 teal lighten-5" depressed small @click="masInfo(persona.docid)"><v-icon color="grey">mdi-account-details</v-icon></v-btn>
+          <v-btn class="mt-4 mx-1 teal lighten-5" depressed small @click="editar(i)"><v-icon color="grey">mdi-pencil</v-icon></v-btn>
           
-          <v-card class="mt-7">
-            <v-simple-table>
-                <thead>
-                  <tr class="teal lighten-5">
-                    <th class="text-center">Fecha</th>
-                    <th class="text-center">Últimos Avances</th>
-                    <th class="text-right"><v-btn fab small depressed text @click="dialogNews=true"><v-icon color="teal lighten-3">mdi-plus</v-icon></v-btn></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>02/08/2020</td>
-                    <td>Se aprobó la tarjeta de residencia.</td>
-                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
-                  </tr>
-                  <tr>
-                    <td>18/07/2020</td>
-                    <td>Se gestiona con abogado tarjeta de residencia.</td>
-                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
-                  </tr>
-                  <tr>
-                    <td>11/05/2020</td>
-                    <td>Esperando que pase la cuarentena para aplicar tarjeta de residencia.</td>
-                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
-                  </tr>
-                </tbody>
-            </v-simple-table>
-          </v-card>
-          <v-card class="mt-7">
-            <v-simple-table>
-                <thead>
-                  <tr class="teal lighten-4">
-                    <th class="text-center">Fecha</th>
-                    <th class="text-center">Asistencia entrega de alimentos</th>
-                    <th class="text-right"><v-btn fab small depressed text dark @click="dialogAsistenciaAlimentos=true"><v-icon>mdi-plus</v-icon></v-btn></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>12/08/2020</td>
-                    <td>Entrega de alimentos en la sede del banco de bebé.</td>
-                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
-                  </tr>
-                  <tr>
-                    <td>05/08/2020</td>
-                    <td>Entrega de alimentos en la sede del banco de bebé. Dice que necesita pañales.</td>
-                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
-                  </tr>
-                </tbody>
-            </v-simple-table>
-          </v-card>
-          <v-card class="my-7">
-            <v-simple-table>
-                <thead>
-                  <tr class="teal lighten-3">
-                    <th class="text-center">Fecha</th>
-                    <th class="text-center">Detalles de llamada telefónica</th>
-                    <th class="text-right"><v-btn fab small depressed text dark @click="dialogCallCenter=true"><v-icon>mdi-plus</v-icon></v-btn></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>08/02/2020</td>
-                    <td>Se procede a orientarlo y que asista a la sede.</td>
-                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
-                  </tr>
-                  <tr>
-                    <td>22/01/2020</td>
-                    <td>Comenta que tiene un inconveniente por el cual necesita ayuda.</td>
-                    <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
-                  </tr>
-                </tbody>
-            </v-simple-table>
-          </v-card>
+          <!-- Primera tabla -->
+          <Tablita collection="novedades" :docid="persona.docid" color="teal lighten-5" titulo="Últimos Avances"/>
+          <Tablita collection="asistencia" :docid="persona.docid" color="light-green lighten-3" titulo="Asistencia Banco del Bebé"/>
+          <Tablita collection="call_center" :docid="persona.docid" color="deep-orange lighten-2" titulo="Call Center"/>
             
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -219,21 +135,25 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { auth, db } from '../main'
+import Hijos from '../components/Hijos'
+import Tablita from '../components/Tablita'
 
 export default {
   name: 'Dashboard',
+  components: {
+    Hijos,
+    Tablita
+  },
   data: () => ({
     dialogFormularioPersona: false,
-    dialogNews: false,
-    dialogAsistenciaAlimentos: false,
-    dialogCallCenter: false,
+    fecha: '2020-08-31',
     filtro: {
+      id: null,
       edad: null,
       nombre: null,
       pais: null,
       hijos: null
     },
-    on: false,
     formulario_persona: {
       accion: 1,
       nombre: '',
@@ -276,6 +196,8 @@ export default {
       telefono: 0,
       hijos: 0,
     },
+    hijos: false,
+    paises: ['', 'Colombia', 'España', 'Líbano', 'República Dominicana' ,'Venezuela']
   }),
   mounted() {
     this.obtenerDatos()
@@ -284,9 +206,15 @@ export default {
     ...mapState(['data', 'id_detalles']),
     lista_personas() {
       let final = this.data;
-      this.filtro.nombre ? final = final.filter(element => element.nombre.includes(this.filtro.nombre)) : null;
+      this.filtro.id ? final = final.filter(element => 
+        element.pasaporteNac.toLowerCase().includes(this.filtro.id.toLowerCase()) ||
+        element.numDoc.toLowerCase().includes(this.filtro.id.toLowerCase()) ||
+        (element.idNac+'').indexOf(this.filtro.id) > -1 ||
+        (element.telefono+'').indexOf(this.filtro.id) > -1
+      ) : null;
+      this.filtro.nombre ? final = final.filter(element => element.nombre.toLowerCase().includes(this.filtro.nombre.toLowerCase())) : null;
       this.filtro.pais ? final = final.filter(element => element.paisNac.includes(this.filtro.pais)) : null;
-      this.filtro.edad ? final = final.filter(element => element.edad === this.filtro.edad) : null;
+      this.filtro.edad ? final = final.filter(element => element.edad == this.filtro.edad) : null;
       this.filtro.hijos ? final = final.filter(element => element.hijos == this.filtro.hijos) : null;
       return final
     }
@@ -324,7 +252,7 @@ export default {
         .then(res => {
           this.data.push({
             docid: res.id,
-            fecha_creado: new Date(),
+            fecha_creacion: new Date(),
             nombre: this.formulario_persona.nombre,
             apellido1: this.formulario_persona.apellido1,
             apellido2: this.formulario_persona.apellido2,
@@ -343,12 +271,11 @@ export default {
             direccion: this.formulario_persona.direccion,
             telefono: this.formulario_persona.telefono,
             hijos: this.formulario_persona.hijos,
-            usuario_creado: auth.currentUser.uid
+            id_creador: auth.currentUser.uid
           })
           this.formulario_persona = this.formulario_vacio
-        } 
-        )
-          .catch(e => console.log("Error creando el dato: ", e.message))
+        })
+        .catch(e => console.log("Error creando el dato: ", e.message))
     },
     editar(value) {
       this.dialogFormularioPersona = true
@@ -356,10 +283,6 @@ export default {
     },
     guardar() {
       if (this.formulario_persona.accion !== 1) {
-        // this.arrayTable[this.editedIndex].feel = this.editedItem.feel
-        // this.arrayTable[this.editedIndex].text = this.editedItem.text
-        // this.arrayTable[this.editedIndex].act = this.editedItem.act
-        // this.editarDato(this.editedItem)
         console.log('Toca editar')
         this.formulario_persona = this.formulario_vacio
       } else {
@@ -370,6 +293,41 @@ export default {
     cancelar() {
       this.dialogFormularioPersona = false
       this.formulario_persona = this.formulario_vacio
+    },
+    mostrarDialog(caso, id) {
+      this.dialogTablas = true
+        console.log(caso, id)
+      switch (caso) {
+        case 1:
+          break;
+        case 2:
+          
+          break;
+        case 3:
+          this.formTabla.docid = id
+          this.formTabla.title = 'Call Center';
+          this.formTabla.subtitle = 'Agregar nuevo registro';
+          this.formTabla.fecha = '2020-08-31';
+          this.formTabla.contenido = 'Prueba Call Center desde caso';
+          break;
+      
+        default:
+          break;
+      }
+    },
+    guardarCallCenter() {
+      db.collection("call_center").add({
+        fecha_creacion: new Date(),
+        id_creador: auth.currentUser.uid,
+        id_usuario: this.formTabla.docid,
+        fecha: this.formTabla.fecha,
+        contenido: this.formTabla.contenido
+      })
+      .then(() => { console.log('todo nice carnal')})
+      .catch((e) => console.log(e))
+    },
+    hey(value) {
+      console.log(value)
     }
   }
 }
