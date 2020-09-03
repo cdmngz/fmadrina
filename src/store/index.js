@@ -17,26 +17,24 @@ export default new Vuex.Store({
         .then(querySnapshot => querySnapshot.forEach(doc => {
           state.data.push({
             docid: doc.id,
-            fecha_creado: doc.data().fecha_creado.toDate(),
-            nombre: doc.data().nombre,
             apellido1: doc.data().apellido1,
             apellido2: doc.data().apellido2,
-            sexo: doc.data().sexo,
-            edad: doc.data().edad,
-            paisNac: doc.data().paisNac,
-            ciudadNac: doc.data().ciudadNac,
-            idNac: doc.data().idNac,
-            pasaporteNac: doc.data().pasaporteNac,
-            mail: doc.data().mail,
-            fechaNac: doc.data().fechaNac,
-            llegadaEsp: doc.data().llegadaEsp,
-            altaFund: doc.data().altaFund,
-            tipoDoc: doc.data().tipoDoc,
-            numDoc: doc.data().numDoc,
+            ciudad_nacimiento: doc.data().ciudad_nacimiento,
             direccion: doc.data().direccion,
-            telefono: doc.data().telefono,
+            edad: doc.data().edad,
+            fecha_alta: doc.data().fecha_alta,
+            fecha_llegada: doc.data().fecha_llegada,
+            fecha_nacimiento: doc.data().fecha_nacimiento,
             hijos: doc.data().hijos,
-            usuario_creado: auth.currentUser.uid
+            id_nacimiento: doc.data().id_nacimiento,
+            mail: doc.data().mail,
+            nombre: doc.data().nombre,
+            numero_documento: doc.data().numero_documento,
+            pais_nacimiento: doc.data().pais_nacimiento,
+            pasaporte_nacimiento: doc.data().pasaporte_nacimiento,
+            sexo: doc.data().sexo,
+            telefono: doc.data().telefono,
+            tipo_documento: doc.data().tipo_documento
           })
       }))
       .catch(e => console.log(e.message))

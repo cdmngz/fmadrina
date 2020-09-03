@@ -8,16 +8,17 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="error" text @click="showDialog=false">Cancelar</v-btn>
-        <v-btn color="success" text @click="[showDialog=false, agregarDato()]">Guardar</v-btn>
+        <v-btn color="success" text @click="[showDialog = false, agregarDato()]">Guardar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 
+  <div v-if="verHijos === true">
   <v-card class="my-5" v-for="(hijo, index) of data" :key="index">
     <v-row>
       <v-col><v-avatar tile size="33"><img :src="hijo.sexo === 'M' ? require(`../assets/MBVitalyGorbachev.svg`) : require(`../assets/FBVitalyGorbachev.svg`)"></v-avatar></v-col>
-      <v-col><span>{{hijo.nombre}}</span></v-col>
-      <v-col><span>{{hijo.edad}}</span></v-col>
+      <v-col><span>{{hijo.apellido1}} {{hijo.apellido2}}, {{hijo.nombre}}</span></v-col>
+      <v-col><span>{{new Date(hijo.fecha_nacimiento.seconds* 1000).toLocaleDateString()}}</span></v-col>
     </v-row>
 
     <v-row class="mx-4">
@@ -33,7 +34,7 @@
                 <th class="text-center"><v-img width="30" height="30" :src="require(`@/assets/leche.svg`)"></v-img></th>
                 <th class="text-center"><v-img width="30" height="30" :src="require(`@/assets/chupete.svg`)"></v-img></th>
                 <th class="text-center"><v-img width="30" height="30" :src="require(`@/assets/bebe.svg`)"></v-img></th>
-                <th class="text-right"><v-btn fab small depressed text @click="showDialog=true"><v-icon color="grey darken-1">mdi-plus</v-icon></v-btn></th>
+                <th class="text-right"><v-btn fab small depressed text @click="nose=true"><v-icon color="grey darken-1">mdi-plus</v-icon></v-btn></th>
               </tr>
             </thead>
             <tbody>
@@ -53,14 +54,6 @@
                 <td>1</td>
                 <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
               </tr>
-              <tr>
-                <td>22/07/2020</td>
-                <td>2</td>
-                <td>3</td>
-                <td>-</td>
-                <td>1</td>
-                <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
-              </tr>
             </tbody>
           </v-simple-table>
         </v-card>
@@ -74,7 +67,7 @@
                 <th class="text-center">Fecha</th>
                 <th class="text-center">Productos</th>
                 <th class="text-center">Estado</th>
-                <th class="text-right"><v-btn fab small depressed text @click="showDialog=true"><v-icon color="grey darken-1">mdi-plus</v-icon></v-btn></th>
+                <th class="text-right"><v-btn fab small depressed text @click="nose=true"><v-icon color="grey darken-1">mdi-plus</v-icon></v-btn></th>
               </tr>
             </thead>
             <tbody>
@@ -103,6 +96,8 @@
     </v-row>
   </v-card>
   </div>
+
+  </div>
 </template>
 
 <script>
@@ -110,10 +105,10 @@ import { auth, db } from '../main'
 
 export default {
     name: 'Hijos',
-    props: ['docid'],
+    props: ['docid', 'verHijos'],
     data: () => ({
-      showDialog: false,
-      data: []
+      data: [],
+      showDialog: false
     }),
     mounted() {
       this.cargarDatos()
@@ -127,18 +122,6 @@ export default {
               this.data.push(element.data())
             })
           })
-          .catch(e => console.log(e))
-      },
-      async agregarDato() {
-        await db.collection("hijos").add({
-          id_creador: auth.currentUser.uid,
-          fecha_creacion: new Date(),
-          edad: "4 meses",
-          nombre: "Juanito",
-          sexo: "M",
-          id_padre: this.docid
-        })
-          .then(console.log('Hijo creado'))
           .catch(e => console.log(e))
       }
     }

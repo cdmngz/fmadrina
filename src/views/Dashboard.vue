@@ -1,35 +1,50 @@
 <template>
   <div class="pa-12">
 
-    <v-dialog v-model="dialogFormularioPersona" width="60vw">
+    <v-dialog v-model="dialogPersona" width="60vw">
       <v-card class="pa-8">
         <v-card-title class="headline teal lighten-5">Asistente de la Fundación</v-card-title>
-        <v-text-field type="text" v-model="formulario_persona.nombre" label="Nombre" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="text" v-model="formulario_persona.apellido1" label="Primer Apellido" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="text" v-model="formulario_persona.apellido2" label="Segundo Apellido" class="mx-10 my-2"></v-text-field>
-        <v-radio-group v-model="formulario_persona.sexo" class="mx-10 my-2">
+        <v-text-field type="text" v-model="formPersona.nombre" label="Nombre" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="text" v-model="formPersona.apellido1" label="Primer Apellido" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="text" v-model="formPersona.apellido2" label="Segundo Apellido" class="mx-10 my-2"></v-text-field>
+        <v-radio-group v-model="formPersona.sexo" class="mx-10 my-2">
           <v-radio label="Masculino" value="M"></v-radio>
           <v-radio label="Femenino" value="F"></v-radio>
         </v-radio-group>         
-        <v-text-field type="number" v-model="formulario_persona.edad" label="Edad" class="mx-10 my-2"></v-text-field>
-        <v-select :items="['','Líbano','Venezuela', 'República Dominicana']" v-model="formulario_persona.paisNac" label="País de Nacimiento" class="mx-10 my-2"></v-select>
-        <v-select :items="['Maracaibo','Caracas', 'Santo Domingo']" v-model="formulario_persona.ciudadNac" label="Ciudad de Nacimiento" class="mx-10 my-2"></v-select>
-        <v-text-field type="text" v-model="formulario_persona.idNac" label="Identificación País Origen" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="text" v-model="formulario_persona.pasaporteNac" label="Pasaporte País Origen" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="mail" v-model="formulario_persona.mail" label="Mail" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="date" v-model="formulario_persona.fechaNac" label="Fecha de Nacimiento" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="date" v-model="formulario_persona.llegadaEsp" label="Fecha llegada España" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="date" v-model="formulario_persona.altaFund" label="Fecha alta en fundación" class="mx-10 my-2"></v-text-field>
-        <v-select :items="['DNI','Pasaporte','Tarjeta Residencia']" v-model="formulario_persona.tipoDoc" label="Tipo de Documento en España" class="mx-10 my-2"></v-select>
-        <v-text-field type="text" v-model="formulario_persona.numDoc" label="Número de Doc en España" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="text" v-model="formulario_persona.direccion" label="Dirección" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="number" v-model="formulario_persona.telefono" label="Teléfono" class="mx-10 my-2"></v-text-field>
-        <v-text-field type="number" v-model="formulario_persona.hijos" label="Hijos" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="number" v-model="formPersona.edad" label="Edad" class="mx-10 my-2"></v-text-field>
+        <v-select :items="['','Líbano','Venezuela', 'República Dominicana']" v-model="formPersona.pais_nacimiento" label="País de Nacimiento" class="mx-10 my-2"></v-select>
+        <v-select :items="['Maracaibo','Caracas', 'Santo Domingo']" v-model="formPersona.ciudad_nacimiento" label="Ciudad de Nacimiento" class="mx-10 my-2"></v-select>
+        <v-text-field type="text" v-model="formPersona.id_nacimiento" label="Identificación País Origen" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="text" v-model="formPersona.pasaporte_nacimiento" label="Pasaporte País Origen" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="mail" v-model="formPersona.mail" label="Mail" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="date" v-model="formPersona.fecha_nacimiento" label="Fecha de Nacimiento" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="date" v-model="formPersona.fecha_llegada" label="Fecha llegada España" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="date" v-model="formPersona.fecha_alta" label="Fecha alta en fundación" class="mx-10 my-2"></v-text-field>
+        <v-select :items="['DNI','Pasaporte','Tarjeta Residencia']" v-model="formPersona.tipo_documento" label="Tipo de Documento en España" class="mx-10 my-2"></v-select>
+        <v-text-field type="text" v-model="formPersona.numero_documento" label="Número de Doc en España" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="text" v-model="formPersona.direccion" label="Dirección" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="number" v-model="formPersona.telefono" label="Teléfono" class="mx-10 my-2"></v-text-field>
+        <v-text-field type="number" v-model="formPersona.hijos" label="Hijos" class="mx-10 my-2"></v-text-field>
         <v-card-actions>
-          <v-btn v-if="formulario_persona.accion!==1" color="primary" text @click="eliminar()">Dar de Baja</v-btn>
+          <v-btn v-if="formPersona.accion!==1" color="primary" text @click="eliminar()">Dar de Baja</v-btn>
           <v-spacer></v-spacer>
           <v-btn color="error" text @click="cancelar()">Cancelar</v-btn>
           <v-btn color="success" text @click="guardar()">Guardar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="dialogHijo" width="60vw">
+      <v-card class="pa-6">
+        <v-card-title class="teal lighten-5">Agregar Hijo</v-card-title>
+        <v-text-field v-model="formHijo.nombre" type="text" label="Nombre" class="mx-2 mt-7"></v-text-field>
+        <v-text-field v-model="formHijo.apellido1" type="text" label="Primer apellido" class="mx-2"></v-text-field>
+        <v-text-field v-model="formHijo.apellido2" type="text" label="Segundo apellido" class="mx-2"></v-text-field>
+        <v-select v-model="formHijo.sexo" :items="['F','M']" label="Sexo" class="mx-2"></v-select>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="error" text @click="dialogHijo=false">Cancelar</v-btn>
+          <v-btn color="success" text @click="agregarHijo()">Guardar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -42,9 +57,9 @@
           fab
           x-small
           depressed
-          class="teal lighten-3"
+          class="teal lighten-4"
           dark
-          @click="dialogFormularioPersona = true"
+          @click="dialogPersona = true"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
@@ -77,45 +92,46 @@
         </v-expansion-panel-header>
         <!-- Panel Cuerpo -->
         <v-expansion-panel-content class="text-center">
-          <!-- <pre style="font-size: 14px; text-align: left; background-color: #333; color: #5F8">{{persona}}</pre> -->
+          <!-- <pre style="font-size: 14px; text-align: left; background-color: #333; color: #3F7">{{persona}}</pre> -->
           <v-row cols="12">
             <v-col xs="12" sm="4">
               <v-card class="pa-3 d-flex flex-column">
                 <v-card-subtitle class="font-weight-bold text-decoration-underline">Origen</v-card-subtitle>
-                <span class="subtitle-2 font-weight-regular my-1"><b>País de Origen: </b>{{persona.paisNac}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Ciudad de Origen: </b>{{persona.ciudadNac}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Pasaporte: </b>{{persona.pasaporteNac}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>ID Origen: </b>{{persona.idNac}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>País de Origen: </b>{{persona.pais_nacimiento}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Ciudad de Origen: </b>{{persona.ciudad_nacimiento}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Pasaporte: </b>{{persona.pasaporte_nacimiento}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>ID Origen: </b>{{persona.id_nacimiento}}</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Mail: </b>{{persona.mail}}</span>
               </v-card>
             </v-col>
             <v-col xs="12" sm="4">
               <v-card class="pa-3 d-flex flex-column">
                 <v-card-subtitle class="font-weight-bold text-decoration-underline">España</v-card-subtitle>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Núm de Documento: </b>{{persona.numDoc}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Núm de Documento: </b>{{persona.numero_documento}}</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Dirección: </b>{{persona.direccion}}</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Cod. Postal: </b>28010</span>
                 <span class="subtitle-2 font-weight-regular my-1"><b>Teléfono: </b>{{persona.telefono}}</span>
                 <span class="subtitle-2 font-weight-regular my-1">
                   <b>Hijos: </b>{{persona.hijos}}
-                  <v-btn depressed x-small color="teal lighten-5"><v-icon color="grey darken-2" small>mdi-plus</v-icon></v-btn> 
-                  <v-btn v-show="persona.hijos > 0" @click="hijos = !hijos" depressed x-small color="teal lighten-5" class="ml-1"><v-icon color="grey darken-1" small>mdi-eye</v-icon></v-btn>
+                  <v-btn @click="[dialogHijo = true, formHijo.id_padre = persona.docid, formHijo.numHijos = persona.hijos]" depressed x-small color="teal lighten-5"><v-icon small>mdi-plus</v-icon></v-btn> 
+                  <v-btn v-show="persona.hijos > 0" @click="verHijos = !verHijos" depressed x-small color="teal lighten-5" class="ml-1"><v-icon color="grey darken-1" small>mdi-eye</v-icon></v-btn>
                 </span>
               </v-card>
             </v-col>
             <v-col xs="12" sm="4">
               <v-card class="pa-3 d-flex flex-column">
                 <v-card-subtitle class="font-weight-bold text-decoration-underline">Fechas</v-card-subtitle>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Nacimiento: </b>{{persona.fechaNac}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Llegada España: </b>{{persona.llegadaEsp}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Alta Fundación: </b>{{persona.altaFund}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Alguna Fecha Adicional: </b>{{persona.altaFund}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Segunda Fecha Adicional: </b>{{persona.altaFund}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Nacimiento: </b>{{persona.fecha_nacimiento}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Llegada España: </b>{{persona.fecha_llegada}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Alta Fundación: </b>{{persona.fecha_alta}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Alguna Fecha Adicional: </b>{{persona.fecha_alta}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Segunda Fecha Adicional: </b>{{persona.fecha_alta}}</span>
               </v-card>
             </v-col>
           </v-row>
 
-          <Hijos v-show="hijos" :docid="persona.docid" />
+          <!-- Hijos -->
+          <Hijos :verHijos="verHijos" :docid="persona.docid" />
 
           <v-btn class="mt-4 mx-1 teal lighten-5" depressed small @click="masInfo(persona.docid)"><v-icon color="grey">mdi-account-details</v-icon></v-btn>
           <v-btn class="mt-4 mx-1 teal lighten-5" depressed small @click="editar(i)"><v-icon color="grey">mdi-pencil</v-icon></v-btn>
@@ -145,7 +161,8 @@ export default {
     Tablita
   },
   data: () => ({
-    dialogFormularioPersona: false,
+    dialogHijo: false,
+    dialogPersona: false,
     fecha: '2020-08-31',
     filtro: {
       id: null,
@@ -154,49 +171,59 @@ export default {
       pais: null,
       hijos: null
     },
-    formulario_persona: {
+    formHijo: {
+      apellido1: '',
+      apellido2: '',
+      fecha_nacimiento: '2020-01-14',
+      id_padre: '',
+      nombre: '',
+      numHijos: 0,
+      sexo: '',
+    },
+    formPersona: {
+      accion: 1,
+      apellido1: '',
+      apellido2: '',
+      ciudad_nacimiento: '',
+      direccion: '',
+      docid: '',
+      edad: 0,
+      fecha_alta: '',
+      fecha_llegada: '',
+      fecha_nacimiento: '',
+      hijos: 0,
+      id_nacimiento: '',
+      mail: '',
+      nombre: '',
+      numero_documento: '',
+      pais_nacimiento: '',
+      pasaporte_nacimiento: '',
+      sexo: '',
+      telefono: 0,
+      tipo_documento: '',
+    },
+    formEmpty: {
       accion: 1,
       nombre: '',
       apellido1: '',
       apellido2: '',
       sexo: '',
       edad: 0,
-      paisNac: '',
-      ciudadNac: '',
-      idNac: '',
-      pasaporteNac: '',
+      pais_nacimiento: '',
+      ciudad_nacimiento: '',
+      id_nacimiento: '',
+      pasaporte_nacimiento: '',
       mail: '',
-      fechaNac: '',
-      llegadaEsp: '',
-      altaFund: '',
-      tipoDoc: '',
-      numDoc: '',
+      fecha_nacimiento: '',
+      fecha_llegada: '',
+      fecha_alta: '',
+      tipo_documento: '',
+      numero_documento: '',
       direccion: '',
       telefono: 0,
       hijos: 0,
     },
-    formulario_vacio: {
-      accion: 1,
-      nombre: '',
-      apellido1: '',
-      apellido2: '',
-      sexo: '',
-      edad: 0,
-      paisNac: '',
-      ciudadNac: '',
-      idNac: '',
-      pasaporteNac: '',
-      mail: '',
-      fechaNac: '',
-      llegadaEsp: '',
-      altaFund: '',
-      tipoDoc: '',
-      numDoc: '',
-      direccion: '',
-      telefono: 0,
-      hijos: 0,
-    },
-    hijos: false,
+    verHijos: false,
     paises: ['', 'Colombia', 'España', 'Líbano', 'República Dominicana' ,'Venezuela']
   }),
   mounted() {
@@ -207,13 +234,13 @@ export default {
     lista_personas() {
       let final = this.data;
       this.filtro.id ? final = final.filter(element => 
-        element.pasaporteNac.toLowerCase().includes(this.filtro.id.toLowerCase()) ||
-        element.numDoc.toLowerCase().includes(this.filtro.id.toLowerCase()) ||
-        (element.idNac+'').indexOf(this.filtro.id) > -1 ||
+        element.pasaporte_nacimiento.toLowerCase().includes(this.filtro.id.toLowerCase()) ||
+        element.numero_documento.toLowerCase().includes(this.filtro.id.toLowerCase()) ||
+        (element.id_nacimiento+'').indexOf(this.filtro.id) > -1 ||
         (element.telefono+'').indexOf(this.filtro.id) > -1
       ) : null;
       this.filtro.nombre ? final = final.filter(element => element.nombre.toLowerCase().includes(this.filtro.nombre.toLowerCase())) : null;
-      this.filtro.pais ? final = final.filter(element => element.paisNac.includes(this.filtro.pais)) : null;
+      this.filtro.pais ? final = final.filter(element => element.pais_nacimiento.includes(this.filtro.pais)) : null;
       this.filtro.edad ? final = final.filter(element => element.edad == this.filtro.edad) : null;
       this.filtro.hijos ? final = final.filter(element => element.hijos == this.filtro.hijos) : null;
       return final
@@ -226,109 +253,141 @@ export default {
       this.$router.push({name: 'Detalles'})
     },
     crearDato() {
-      let objeto = Object.assign({}, this.formulario_persona)
+      let objeto = Object.assign({}, this.formPersona)
       db.collection("personas").add({
-        fecha_creado: new Date(),
-        nombre: this.formulario_persona.nombre,
-        apellido1: this.formulario_persona.apellido1,
-        apellido2: this.formulario_persona.apellido2,
-        sexo: this.formulario_persona.sexo,
-        edad: this.formulario_persona.edad,
-        paisNac: this.formulario_persona.paisNac,
-        ciudadNac: this.formulario_persona.ciudadNac,
-        idNac: this.formulario_persona.idNac,
-        pasaporteNac: this.formulario_persona.pasaporteNac,
-        mail: this.formulario_persona.mail,
-        fechaNac: this.formulario_persona.fechaNac,
-        llegadaEsp: this.formulario_persona.llegadaEsp,
-        altaFund: this.formulario_persona.altaFund,
-        tipoDoc: this.formulario_persona.tipoDoc,
-        numDoc: this.formulario_persona.numDoc,
-        direccion: this.formulario_persona.direccion,
-        telefono: this.formulario_persona.telefono,
-        hijos: this.formulario_persona.hijos,
-        usuario_creado: auth.currentUser.uid
+        apellido1: this.formPersona.apellido1,
+        apellido2: this.formPersona.apellido2,
+        ciudad_nacimiento: this.formPersona.ciudad_nacimiento,
+        direccion: this.formPersona.direccion,
+        edad: this.formPersona.edad,
+        fecha_alta: this.formPersona.fecha_alta,
+        fecha_creacion: new Date(),
+        fecha_llegada: this.formPersona.fecha_llegada,
+        fecha_modificado: new Date(),
+        fecha_nacimiento: this.formPersona.fecha_nacimiento,
+        hijos: this.formPersona.hijos,
+        id_creador: auth.currentUser.uid,
+        id_modificador: auth.currentUser.uid,
+        id_nacimiento: this.formPersona.id_nacimiento,
+        mail: this.formPersona.mail,
+        nombre: this.formPersona.nombre,
+        numero_documento: this.formPersona.numero_documento,
+        pais_nacimiento: this.formPersona.pais_nacimiento,
+        pasaporte_nacimiento: this.formPersona.pasaporte_nacimiento,
+        sexo: this.formPersona.sexo,
+        telefono: this.formPersona.telefono,
+        tipo_documento: this.formPersona.tipo_documento
       })
         .then(res => {
           this.data.push({
             docid: res.id,
+            apellido1: this.formPersona.apellido1,
+            apellido2: this.formPersona.apellido2,
+            ciudad_nacimiento: this.formPersona.ciudad_nacimiento,
+            direccion: this.formPersona.direccion,
+            edad: this.formPersona.edad,
+            fecha_alta: this.formPersona.fecha_alta,
             fecha_creacion: new Date(),
-            nombre: this.formulario_persona.nombre,
-            apellido1: this.formulario_persona.apellido1,
-            apellido2: this.formulario_persona.apellido2,
-            sexo: this.formulario_persona.sexo,
-            edad: this.formulario_persona.edad,
-            paisNac: this.formulario_persona.paisNac,
-            ciudadNac: this.formulario_persona.ciudadNac,
-            idNac: this.formulario_persona.idNac,
-            pasaporteNac: this.formulario_persona.pasaporteNac,
-            mail: this.formulario_persona.mail,
-            fechaNac: this.formulario_persona.fechaNac,
-            llegadaEsp: this.formulario_persona.llegadaEsp,
-            altaFund: this.formulario_persona.altaFund,
-            tipoDoc: this.formulario_persona.tipoDoc,
-            numDoc: this.formulario_persona.numDoc,
-            direccion: this.formulario_persona.direccion,
-            telefono: this.formulario_persona.telefono,
-            hijos: this.formulario_persona.hijos,
-            id_creador: auth.currentUser.uid
+            fecha_llegada: this.formPersona.fecha_llegada,
+            fecha_modificado: new Date(),
+            fecha_nacimiento: this.formPersona.fecha_nacimiento,
+            hijos: this.formPersona.hijos,
+            id_creador: auth.currentUser.uid,
+            id_modificador: auth.currentUser.uid,
+            id_nacimiento: this.formPersona.id_nacimiento,
+            mail: this.formPersona.mail,
+            nombre: this.formPersona.nombre,
+            numero_documento: this.formPersona.numero_documento,
+            pais_nacimiento: this.formPersona.pais_nacimiento,
+            pasaporte_nacimiento: this.formPersona.pasaporte_nacimiento,
+            sexo: this.formPersona.sexo,
+            telefono: this.formPersona.telefono,
+            tipo_documento: this.formPersona.tipo_documento
           })
-          this.formulario_persona = this.formulario_vacio
+          this.formPersona = this.formEmpty
         })
-        .catch(e => console.log("Error creando el dato: ", e.message))
+        .catch(e =>   console.log("Error creando el dato: ", e.message))
+    },
+    async agregarHijo() {
+      await db.collection("hijos").add({
+        apellido1: this.formHijo.apellido1,
+        apellido2: this.formHijo.apellido2,
+        fecha_creacion: new Date(),
+        fecha_nacimiento: new Date(),
+        id_creador: auth.currentUser.uid,
+        id_padre: this.formHijo.id_padre,
+        nombre: this.formHijo.nombre,
+        sexo: this.formHijo.sexo,
+      })
+        .then(() => {
+          console.log('Hijo creado')
+          this.incrementarNumHijo()
+          this.dialogHijo = false
+        })
+        .catch(e => console.log(e))
+    },
+    async incrementarNumHijo() {
+      this.formHijo.numHijos += 1
+      await db.collection("personas").doc(this.formHijo.id_padre).update({
+        hijos: this.formHijo.numHijos
+      })
+        .then(this.obtenerDatos())
+        .catch(e => console.log(e))
+    },
+    async decrementarNumHijo() {
+      this.formHijo.numHijos -= 1
+      await db.collection("personas").doc(this.formHijo.id_padre).update({
+        hijos: this.formHijo.numHijos
+      })
+        .then(this.obtenerDatos())
+        .catch(e => console.log(e))
     },
     editar(value) {
-      this.dialogFormularioPersona = true
-      this.formulario_persona = this.lista_personas[value]
+      this.dialogPersona = true
+      this.formPersona = JSON.parse(JSON.stringify(this.lista_personas[value]))
+      this.formPersona.accion = 2
+    },
+    async editarPersona() {
+      console.log(this.formPersona.docid);
+      await db.collection("personas").doc(this.formPersona.docid).update({
+        apellido1: this.formPersona.apellido1,
+        apellido2: this.formPersona.apellido2,
+        ciudad_nacimiento: this.formPersona.ciudad_nacimiento,
+        direccion: this.formPersona.direccion,
+        edad: this.formPersona.edad,
+        fecha_alta: this.formPersona.fecha_alta,
+        fecha_creacion: new Date(),
+        fecha_llegada: this.formPersona.fecha_llegada,
+        fecha_modificado: new Date(),
+        fecha_nacimiento: this.formPersona.fecha_nacimiento,
+        hijos: this.formPersona.hijos,
+        id_creador: auth.currentUser.uid,
+        id_modificador: auth.currentUser.uid,
+        id_nacimiento: this.formPersona.id_nacimiento,
+        mail: this.formPersona.mail,
+        nombre: this.formPersona.nombre,
+        numero_documento: this.formPersona.numero_documento,
+        pais_nacimiento: this.formPersona.pais_nacimiento,
+        pasaporte_nacimiento: this.formPersona.pasaporte_nacimiento,
+        sexo: this.formPersona.sexo,
+        telefono: this.formPersona.telefono,
+        tipo_documento: this.formPersona.tipo_documento
+      })
+      .then(this.obtenerDatos(), this.formPersona = this.formEmpty)
+      .catch(e => console.log(e))
     },
     guardar() {
-      if (this.formulario_persona.accion !== 1) {
-        console.log('Toca editar')
-        this.formulario_persona = this.formulario_vacio
+      if (this.formPersona.accion !== 1) {
+        this.editarPersona()
       } else {
         this.crearDato()
       }
-      this.dialogFormularioPersona = false
+      this.dialogPersona = false
     },
     cancelar() {
-      this.dialogFormularioPersona = false
-      this.formulario_persona = this.formulario_vacio
+      this.dialogPersona = false
+      this.formPersona = this.formEmpty
     },
-    mostrarDialog(caso, id) {
-      this.dialogTablas = true
-        console.log(caso, id)
-      switch (caso) {
-        case 1:
-          break;
-        case 2:
-          
-          break;
-        case 3:
-          this.formTabla.docid = id
-          this.formTabla.title = 'Call Center';
-          this.formTabla.subtitle = 'Agregar nuevo registro';
-          this.formTabla.fecha = '2020-08-31';
-          this.formTabla.contenido = 'Prueba Call Center desde caso';
-          break;
-      
-        default:
-          break;
-      }
-    },
-    guardarCallCenter() {
-      db.collection("call_center").add({
-        fecha_creacion: new Date(),
-        id_creador: auth.currentUser.uid,
-        id_usuario: this.formTabla.docid,
-        fecha: this.formTabla.fecha,
-        contenido: this.formTabla.contenido
-      })
-      .then(() => { console.log('todo nice carnal')})
-      .catch((e) => console.log(e))
-    },
-    hey(value) {
-      console.log(value)
-    }
   }
 }
 </script>

@@ -5,7 +5,7 @@
     </v-avatar>
 
     <v-tabs
-      background-color="teal lighten-4"    
+      background-color="teal lighten-5"    
       centered
     >
       <v-tabs-slider></v-tabs-slider>
@@ -14,34 +14,157 @@
       <v-tab>Fis</v-tab>
       <v-tab>Informe Psicológico</v-tab>
       <v-tab>CV</v-tab>
+      <v-tab>Archivos</v-tab>
 
-      <v-tab-item>
-          <h4 class="ma-3">DIS</h4>
-          <v-row cols="12">
-            <v-col class="grey white--text">Nombre</v-col>
-            <v-col class="grey white--text">Apellidos</v-col>
-            <v-col class="grey white--text">Situación de Riesgo</v-col>
-            <v-col class="grey white--text">Nacionalidad</v-col>
-          </v-row>
-          <v-row cols="12">
-            <v-col>{{detallado.nombre}}</v-col>
-            <v-col>{{detallado.apellido1}} {{detallado.apellido2}}</v-col>
-            <v-col></v-col>
-            <v-col>{{detallado.paisNac}}</v-col>
-          </v-row>
-          <v-row cols="12">
-            <v-col class="grey white--text">Fecha Alta</v-col>
-            <v-col class="grey white--text">Hora Alta</v-col>
-            <v-col class="grey white--text">Fecha de Nacimiento</v-col>
-            <v-col class="grey white--text">Sede Acogida</v-col>
-          </v-row>
-          <v-row cols="12">
-            <v-col>{{detallado.altaFund}}</v-col>
-            <v-col>17:32</v-col>
-            <v-col>{{detallado.fechaNac}}</v-col>
-            <v-col>Limoneros 26</v-col>
-          </v-row>
+      <v-tab-item><br>
+
+      <p class="subtitle-2">1. Datos Preliminares</p>
+      <v-card class="mx-12">
+          <v-simple-table>
+            <thead>
+              <tr class="teal lighten-4">
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Apellidos</th>
+                <th class="text-center">Situación de Riesgo</th>
+                <th class="text-center">Nacionalidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{detallado.nombre}}</td>
+                <td>{{detallado.apellido1}} {{detallado.apellido2}}</td>
+                <td>Riesgo</td>
+                <td>{{detallado.pais_nacimiento}}</td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr class="teal lighten-4">
+                <th class="text-center">Fecha Alta</th>
+                <th class="text-center">Hora Alta</th>
+                <th class="text-center">Sede Acogida</th>
+                <th class="text-center">Fecha Nacimiento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{detallado.fecha_alta}}</td>
+                <td>17:32</td>
+                <td>Limoneros 26</td>
+                <td>{{detallado.fecha_nacimiento}}</td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card>
+        <v-card class="my-7 mx-12">
+          <v-simple-table>
+            <thead>
+              <tr class="teal lighten-4">
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Apellidos</th>
+                <th class="text-center">Situación de Riesgo</th>
+                <th class="text-center">Nacionalidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{detallado.nombre}}</td>
+                <td>{{detallado.apellido1}} {{detallado.apellido2}}</td>
+                <td>Riesgo</td>
+                <td>{{detallado.pais_nacimiento}}</td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr class="teal lighten-4">
+                <th class="text-center">Fecha Alta</th>
+                <th class="text-center">Hora Alta</th>
+                <th class="text-center">Sede Acogida</th>
+                <th class="text-center">Fecha Nacimiento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{detallado.fecha_alta}}</td>
+                <td>17:32</td>
+                <td>Limoneros 26</td>
+                <td>{{detallado.fecha_nacimiento}}</td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card>
+
+      <p class="subtitle-2">2. Datos de Derivación</p>
+        <v-card class="mb-6 mx-12">
+          <v-simple-table>
+            <thead>
+              <tr class="teal lighten-4">
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Apellidos</th>
+                <th class="text-center">Situación de Riesgo</th>
+                <th class="text-center">Nacionalidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{detallado.nombre}}</td>
+                <td>{{detallado.apellido1}} {{detallado.apellido2}}</td>
+                <td>Riesgo</td>
+                <td>{{detallado.pais_nacimiento}}</td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr class="teal lighten-4">
+                <th class="text-center">Fecha Alta</th>
+                <th class="text-center">Hora Alta</th>
+                <th class="text-center">Sede Acogida</th>
+                <th class="text-center">Fecha Nacimiento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{detallado.fecha_alta}}</td>
+                <td>17:32</td>
+                <td>Limoneros 26</td>
+                <td>{{detallado.fecha_nacimiento}}</td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card>
+
+      <p class="subtitle-2">3. Situación Legal</p>
+        <v-card class="mb-6 mx-12">
+          <v-simple-table>
+            <thead>
+              <tr class="teal lighten-4">
+                <th class="text-center">Permiso de Residencia</th>
+                <th class="text-center">Permiso de Trabajo</th>
+                <th class="text-center">Permiso de Estudio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sí</td>
+                <td>Sí</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr class="teal lighten-4">
+                <th class="text-center">Antecedentes Penales</th>
+                <th class="text-center">Cárcel</th>
+                <th class="text-center">Valoración Legal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>No</td>
+                <td>No</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card>
       </v-tab-item>
+
       <v-tab-item>
         <v-card flat tile>
           <v-card-text>FIS</v-card-text>
@@ -165,6 +288,18 @@
           </div>
         </div>
       </v-tab-item>
+      <v-tab-item>
+        <v-row class="ma-10">
+          <v-col v-for="i of 7" :key="i">
+        <v-card @click="hey" height="120" width="120">
+          <v-card-subtitle primary-title>
+            <v-icon>mdi-adobe-acrobat</v-icon>
+            archivo{{i}}.pdf
+          </v-card-subtitle>
+        </v-card>
+          </v-col>
+        </v-row>
+      </v-tab-item>
     </v-tabs>
   </div>
 </template>
@@ -183,7 +318,10 @@ import { mapState, mapMutations } from 'vuex'
       ...mapState(['id_detalles', 'detallado'])
     },
     methods: {
-      ...mapMutations(['getValueById'])
+      ...mapMutations(['getValueById']),
+      hey() {
+        console.log('archivos')
+      }
     }
   }
 </script>
