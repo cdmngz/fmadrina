@@ -69,10 +69,10 @@
         >
         <v-expansion-panel-header>
           <v-row cols="12">
-            <v-col xs="12" sm="1" class="my-n1 ml-14"><span>{{i+1}}.</span></v-col>
-            <v-col xs="12" sm="3" class="ma-n3"><v-avatar tile size="33"><img :src="persona.sexo === 'M' ? require(`../assets/MVitalyGorbachev.svg`) : require(`../assets/FVitalyGorbachev.svg`)"></v-avatar></v-col>
-            <v-col xs="12" sm="4" class="my-n1"><span>{{persona.apellido1}} {{persona.apellido2}}, {{persona.nombre}}</span></v-col>
-            <v-col xs="12" sm="3" class="my-n1"><span>{{persona.edad}} años</span></v-col>
+            <v-col xs="12" sm="1" class="ml-14"><span>{{i+1}}.</span></v-col>
+            <v-col xs="12" sm="3" class="ma-n2"><v-avatar tile size="33"><img :src="persona.sexo === 'M' ? require(`../assets/MVitalyGorbachev.svg`) : require(`../assets/FVitalyGorbachev.svg`)"></v-avatar></v-col>
+            <v-col xs="12" sm="4"><span>{{persona.apellido1}} {{persona.apellido2}}, {{persona.nombre}}</span></v-col>
+            <v-col xs="12" sm="3"><span>{{persona.edad}} años</span></v-col>
           </v-row>
         </v-expansion-panel-header>
         <!-- Panel Cuerpo -->
@@ -121,9 +121,9 @@
           <v-btn class="mt-4 mx-1 teal lighten-5" depressed small @click="editar(i)"><v-icon color="grey">mdi-pencil</v-icon></v-btn>
           
           <!-- Primera tabla -->
-          <Tablita collection="novedades" :docid="persona.docid" color="teal lighten-5" titulo="Últimos Avances"/>
-          <Tablita collection="asistencia" :docid="persona.docid" color="light-green lighten-3" titulo="Asistencia Banco del Bebé"/>
-          <Tablita collection="call_center" :docid="persona.docid" color="deep-orange lighten-2" titulo="Call Center"/>
+          <Tablita collection="novedades" :docid="persona.docid" color="teal lighten-4" titulo="Últimos Avances"/>
+          <Tablita collection="asistencia" :docid="persona.docid" color="lime accent-1" titulo="Asistencia Banco del Bebé"/>
+          <Tablita collection="call_center" :docid="persona.docid" color="deep-orange lighten-3" titulo="Call Center"/>
             
         </v-expansion-panel-content>
       </v-expansion-panel>
