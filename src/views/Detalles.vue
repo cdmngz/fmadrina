@@ -59,34 +59,34 @@
           <v-simple-table>
             <thead>
               <tr class="teal lighten-4">
-                <th class="text-center">Nombre</th>
-                <th class="text-center">Apellidos</th>
-                <th class="text-center">Situación de Riesgo</th>
-                <th class="text-center">Nacionalidad</th>
+                <th class="text-center">Domicilio Residencia</th>
+                <th class="text-center">Barrio</th>
+                <th class="text-center">Domicilio Empradronamiento</th>
+                <th class="text-center">Barrio</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{{detallado.nombre}}</td>
-                <td>{{detallado.apellido1}} {{detallado.apellido2}}</td>
-                <td>Riesgo</td>
-                <td>{{detallado.pais_nacimiento}}</td>
+                <td>Moratines 20</td>
+                <td>Embajadores</td>
+                <td>Moratines 20</td>
+                <td>Embajadores</td>
               </tr>
             </tbody>
             <thead>
               <tr class="teal lighten-4">
-                <th class="text-center">Fecha Alta</th>
-                <th class="text-center">Hora Alta</th>
-                <th class="text-center">Sede Acogida</th>
-                <th class="text-center">Fecha Nacimiento</th>
+                <th class="text-center">Teléfono</th>
+                <th class="text-center">Mail</th>
+                <th class="text-center">Otro Teléfono</th>
+                <th class="text-center">Familiar/Amigos</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{{detallado.fecha_alta}}</td>
-                <td>17:32</td>
-                <td>Limoneros 26</td>
-                <td>{{detallado.fecha_nacimiento}}</td>
+                <td>{{detallado.telefono}}</td>
+                <td>{{detallado.mail}}</td>
+                <td>-</td>
+                <td>-</td>
               </tr>
             </tbody>
           </v-simple-table>
@@ -97,10 +97,9 @@
           <v-simple-table>
             <thead>
               <tr class="teal lighten-4">
-                <th class="text-center">Nombre</th>
-                <th class="text-center">Apellidos</th>
-                <th class="text-center">Situación de Riesgo</th>
-                <th class="text-center">Nacionalidad</th>
+                <th class="text-center">¿Cómo nos ha conocido?</th>
+                <th class="text-center">Entidad/Persona que deriva</th>
+                <th class="text-center">Tiene Ficha Abierta Serv. Soc.</th>
               </tr>
             </thead>
             <tbody>
@@ -108,15 +107,13 @@
                 <td>{{detallado.nombre}}</td>
                 <td>{{detallado.apellido1}} {{detallado.apellido2}}</td>
                 <td>Riesgo</td>
-                <td>{{detallado.pais_nacimiento}}</td>
               </tr>
             </tbody>
             <thead>
               <tr class="teal lighten-4">
-                <th class="text-center">Fecha Alta</th>
-                <th class="text-center">Hora Alta</th>
-                <th class="text-center">Sede Acogida</th>
-                <th class="text-center">Fecha Nacimiento</th>
+                <th class="text-center">Trabajador Social</th>
+                <th class="text-center">Localidad Serv. Soc.</th>
+                <th class="text-center">Ayudas recibidas de otras ONG</th>
               </tr>
             </thead>
             <tbody>
@@ -124,7 +121,6 @@
                 <td>{{detallado.fecha_alta}}</td>
                 <td>17:32</td>
                 <td>Limoneros 26</td>
-                <td>{{detallado.fecha_nacimiento}}</td>
               </tr>
             </tbody>
           </v-simple-table>
@@ -138,6 +134,8 @@
                 <th class="text-center">Permiso de Residencia</th>
                 <th class="text-center">Permiso de Trabajo</th>
                 <th class="text-center">Permiso de Estudio</th>
+                <th class="text-center">Denegaciones</th>
+                <th class="text-center">Expulsiones</th>
               </tr>
             </thead>
             <tbody>
@@ -145,19 +143,25 @@
                 <td>Sí</td>
                 <td>Sí</td>
                 <td>-</td>
+                <td>-</td>
+                <td>-</td>
               </tr>
             </tbody>
             <thead>
               <tr class="teal lighten-4">
+                <th class="text-center">Fecha Llegada España</th>
+                <th class="text-center">Ciudad Natal</th>
                 <th class="text-center">Antecedentes Penales</th>
-                <th class="text-center">Cárcel</th>
+                <th class="text-center">¿Ha cumplido condena alguna vez?</th>
                 <th class="text-center">Valoración Legal</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>No</td>
-                <td>No</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
                 <td>-</td>
               </tr>
             </tbody>
