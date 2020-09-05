@@ -4,7 +4,7 @@
     <v-card class="pa-8">
       <v-card-title class="teal lighten-5">{{titulo}}</v-card-title>
       <v-text-field type="date" label="Fecha" class="mx-2 mt-8"></v-text-field>
-      <v-text-field type="text" label="Motivo de la llamada" class="mx-2"></v-text-field>
+      <v-text-field type="text" label="Detalles" class="mx-2"></v-text-field>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="error" text @click="showDialog=false">Cancelar</v-btn>
