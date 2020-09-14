@@ -49,10 +49,10 @@
       </v-card>
     </v-dialog>
 
-    <!-- Botón agregar -->
-    <v-card class="mb-8 pa-6">
+    <v-card class="mb-8 pa-6 d-print-none">
       <v-row>
         <v-spacer></v-spacer>
+        <!-- Botón agregar -->
         <v-btn
           fab
           x-small
@@ -232,7 +232,7 @@ export default {
   computed: {
     ...mapState(['data', 'id_detalles']),
     lista_personas() {
-      let final = this.data;
+      let final = JSON.parse(JSON.stringify(this.data))
       this.filtro.id ? final = final.filter(element => 
         element.pasaporte_nacimiento.toLowerCase().includes(this.filtro.id.toLowerCase()) ||
         element.numero_documento.toLowerCase().includes(this.filtro.id.toLowerCase()) ||

@@ -17,6 +17,12 @@ Vue.use(VueRouter)
     meta: { requiresAuth: true }
   },
   {
+    path: '/imprimir',
+    name: 'Imprimir',
+    component: () => import('../views/Imprimir.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/detalles',
     name: 'Detalles',
     component: () => import('../views/Detalles.vue'),

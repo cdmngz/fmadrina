@@ -4,6 +4,7 @@
       absolute
       :app="currentRouteName === 'Home' ? false : true"
       :color="currentRouteName === 'Home' ? 'transparent' : 'white'"
+      class="d-print-none"
       dark
       :flat="currentRouteName === 'Home' ? true : false"
     >
@@ -18,8 +19,9 @@
         />
       </div>
       <v-tabs class="ml-4" v-if="currentRouteName !== 'Home'">
-        <v-tabs-slider color="teal lighten-4"></v-tabs-slider>
+        <v-tabs-slider color="teal lighten-3"></v-tabs-slider>
         <v-tab to="/dashboard"><v-icon color="teal lighten-4">mdi-home-assistant</v-icon></v-tab>
+        <v-tab to="/imprimir"><v-icon color="teal lighten-4">mdi-printer-search</v-icon></v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
       <v-menu :offset-y="true">

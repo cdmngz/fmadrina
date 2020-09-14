@@ -3,8 +3,8 @@
   <v-dialog v-model="showDialog" width="60vw">
     <v-card class="pa-8">
       <v-card-title class="teal lighten-5">{{titulo}}</v-card-title>
-      <v-text-field type="date" label="Fecha" class="mx-2 mt-8"></v-text-field>
-      <v-text-field type="text" label="Detalles" class="mx-2"></v-text-field>
+      <v-text-field v-model="fecha" type="date" label="Fecha" class="mx-2 mt-8"></v-text-field>
+      <v-text-field v-model="contenido" type="text" label="Detalles" class="mx-2"></v-text-field>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="error" text @click="showDialog=false">Cancelar</v-btn>
@@ -42,7 +42,9 @@ export default {
     props: ['color', 'titulo', 'docid','collection'],
     data: () => ({
       showDialog: false,
-      data: []
+      data: [],
+      fecha: '',
+      contenido: ''
     }),
     mounted() {
       this.cargarDatos()
@@ -53,7 +55,11 @@ export default {
           .then(res => {
             this.data = []
             res.forEach(element => {
-              this.data.push(element.data())
+              this.data.push({
+                id_usuario: element.data().id_usuario,
+                fecha: this.fromTimeStampToLocalDate(element.data().fecha),
+                contenido: element.data().contenido
+              })
             })
           })
           .catch(e => console.log(e))
@@ -62,13 +68,31 @@ export default {
         await db.collection(this.collection).add({
           id_creador: auth.currentUser.uid,
           fecha_creacion: new Date(),
-          contenido: "Que grande los componentes23",
-          fecha: '2020-08-10',
+          contenido: this.contenido,
+          fecha: this.fromDateToTimeStamp(this.fecha),
           id_usuario: this.docid
         })
-          .then(console.log('nice'))
+          .then(() => {
+            console.log('Dato agregado')
+            this.cargarDatos()
+            this.showDialog = false
+          })
           .catch(e => console.log(e))
-      }
+      },
+      fromDateToTimeStamp(value) {
+        let fecha = value.split("-")
+        return new Date(fecha[0], fecha[1] - 1, fecha[2])
+      },  
+      fromTimeStampToDate(value) {
+        let fecha = new Date(value.seconds * 1000)
+        fecha = `${fecha.getFullYear()}-${("0" + (fecha.getMonth() + 1)).slice(-2)}-${('0'+fecha.getDate()).slice(-2)}`
+        return fecha
+      },
+      fromTimeStampToLocalDate(value) {
+        let fecha = new Date(value.seconds * 1000)
+        fecha = `${('0'+fecha.getDate()).slice(-2)}/${("0" + (fecha.getMonth() + 1)).slice(-2)}/${fecha.getFullYear()}`
+        return fecha
+      },
     }
   }
 </script>
