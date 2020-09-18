@@ -59,7 +59,7 @@
           depressed
           class="teal lighten-4"
           dark
-          @click="dialogPersona = true"
+          @click="agregar()"
         >
           <v-icon>mdi-plus</v-icon>
         </v-btn>
@@ -67,11 +67,11 @@
 
       <!-- Filtros -->
       <v-row cols="12">
-        <v-col xs="12" md="3"><v-text-field v-model="filtro.id" label="ID, Pasaporte o Telf" prepend-icon="mdi-card-account-details-outline"></v-text-field></v-col>
-        <v-col xs="12" md="3"><v-text-field v-model="filtro.nombre" label="Nombre" prepend-icon="mdi-account-outline"></v-text-field></v-col>
-        <v-col xs="12" md="3"><v-select v-model="filtro.pais" :items="paises" label="País de Nacimiento" prepend-icon="mdi-flag-outline"></v-select></v-col>
-        <v-col xs="12" md="3"><v-text-field v-model="filtro.edad" label="Edad" prepend-icon="mdi-calendar-account-outline"></v-text-field></v-col>
-        <v-col xs="12" md="3"><v-text-field v-model="filtro.hijos" label="Hijos" prepend-icon="mdi-account-multiple-outline"></v-text-field></v-col>
+        <v-col><v-text-field v-model="filtro.id" label="ID, Pasaporte o Telf" prepend-icon="mdi-card-account-details-outline"></v-text-field></v-col>
+        <v-col><v-text-field v-model="filtro.nombre" label="Nombre" prepend-icon="mdi-account-outline"></v-text-field></v-col>
+        <v-col><v-select v-model="filtro.pais" :items="paises" label="País de Nacimiento" prepend-icon="mdi-flag-outline"></v-select></v-col>
+        <v-col><v-text-field v-model="filtro.edad" label="Edad" prepend-icon="mdi-calendar-account-outline"></v-text-field></v-col>
+        <v-col><v-text-field v-model="filtro.hijos" label="Hijos" prepend-icon="mdi-account-multiple-outline"></v-text-field></v-col>
       </v-row>
     </v-card>
 
@@ -121,11 +121,11 @@
             <v-col xs="12" sm="4">
               <v-card class="pa-3 d-flex flex-column">
                 <v-card-subtitle class="font-weight-bold text-decoration-underline">Fechas</v-card-subtitle>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Nacimiento: </b>{{persona.fecha_nacimiento}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Llegada España: </b>{{persona.fecha_llegada}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Alta Fundación: </b>{{persona.fecha_alta}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Alguna Fecha Adicional: </b>{{persona.fecha_alta}}</span>
-                <span class="subtitle-2 font-weight-regular my-1"><b>Segunda Fecha Adicional: </b>{{persona.fecha_alta}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Nacimiento: </b>{{new Date(persona.fecha_nacimiento.seconds).toLocaleString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Llegada España: </b>{{new Date(persona.fecha_llegada.seconds).toLocaleString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Fecha Alta Fundación: </b>{{new Date(persona.fecha_alta.seconds).toLocaleString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Alguna Fecha Adicional: </b>{{new Date(persona.fecha_alta.seconds).toLocaleString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}}</span>
+                <span class="subtitle-2 font-weight-regular my-1"><b>Segunda Fecha Adicional: </b>{{new Date(persona.fecha_alta.seconds).toLocaleString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}}</span>
               </v-card>
             </v-col>
           </v-row>
@@ -174,10 +174,10 @@ export default {
     formHijo: {
       apellido1: '',
       apellido2: '',
-      fecha_nacimiento: '2020-01-14',
+      fecha_nacimiento: '',
       id_padre: '',
       nombre: '',
-      numHijos: 0,
+      numHijos: '',
       sexo: '',
     },
     formPersona: {
@@ -187,11 +187,11 @@ export default {
       ciudad_nacimiento: '',
       direccion: '',
       docid: '',
-      edad: 0,
+      edad: '',
       fecha_alta: '',
       fecha_llegada: '',
       fecha_nacimiento: '',
-      hijos: 0,
+      hijos: '',
       id_nacimiento: '',
       mail: '',
       nombre: '',
@@ -199,32 +199,11 @@ export default {
       pais_nacimiento: '',
       pasaporte_nacimiento: '',
       sexo: '',
-      telefono: 0,
+      telefono: '',
       tipo_documento: '',
-    },
-    formEmpty: {
-      accion: 1,
-      nombre: '',
-      apellido1: '',
-      apellido2: '',
-      sexo: '',
-      edad: 0,
-      pais_nacimiento: '',
-      ciudad_nacimiento: '',
-      id_nacimiento: '',
-      pasaporte_nacimiento: '',
-      mail: '',
-      fecha_nacimiento: '',
-      fecha_llegada: '',
-      fecha_alta: '',
-      tipo_documento: '',
-      numero_documento: '',
-      direccion: '',
-      telefono: 0,
-      hijos: 0,
     },
     verHijos: false,
-    paises: ['', 'Colombia', 'España', 'Líbano', 'República Dominicana' ,'Venezuela']
+    paises: ['', 'Colombia', 'España', 'Honduras', 'Líbano', 'República Dominicana' ,'Venezuela']
   }),
   mounted() {
     this.obtenerDatos()
@@ -260,11 +239,11 @@ export default {
         ciudad_nacimiento: this.formPersona.ciudad_nacimiento,
         direccion: this.formPersona.direccion,
         edad: this.formPersona.edad,
-        fecha_alta: this.formPersona.fecha_alta,
+        fecha_alta: new Date(),
         fecha_creacion: new Date(),
-        fecha_llegada: this.formPersona.fecha_llegada,
+        fecha_llegada: new Date(),
         fecha_modificado: new Date(),
-        fecha_nacimiento: this.formPersona.fecha_nacimiento,
+        fecha_nacimiento: new Date(),
         hijos: this.formPersona.hijos,
         id_creador: auth.currentUser.uid,
         id_modificador: auth.currentUser.uid,
@@ -278,35 +257,11 @@ export default {
         telefono: this.formPersona.telefono,
         tipo_documento: this.formPersona.tipo_documento
       })
-        .then(res => {
-          this.data.push({
-            docid: res.id,
-            apellido1: this.formPersona.apellido1,
-            apellido2: this.formPersona.apellido2,
-            ciudad_nacimiento: this.formPersona.ciudad_nacimiento,
-            direccion: this.formPersona.direccion,
-            edad: this.formPersona.edad,
-            fecha_alta: this.formPersona.fecha_alta,
-            fecha_creacion: new Date(),
-            fecha_llegada: this.formPersona.fecha_llegada,
-            fecha_modificado: new Date(),
-            fecha_nacimiento: this.formPersona.fecha_nacimiento,
-            hijos: this.formPersona.hijos,
-            id_creador: auth.currentUser.uid,
-            id_modificador: auth.currentUser.uid,
-            id_nacimiento: this.formPersona.id_nacimiento,
-            mail: this.formPersona.mail,
-            nombre: this.formPersona.nombre,
-            numero_documento: this.formPersona.numero_documento,
-            pais_nacimiento: this.formPersona.pais_nacimiento,
-            pasaporte_nacimiento: this.formPersona.pasaporte_nacimiento,
-            sexo: this.formPersona.sexo,
-            telefono: this.formPersona.telefono,
-            tipo_documento: this.formPersona.tipo_documento
-          })
-          this.formPersona = this.formEmpty
+        .then(() => {
+          this.obtenerDatos()
+          this.vaciarFormPersona()
         })
-        .catch(e =>   console.log("Error creando el dato: ", e.message))
+        .catch(e => console.log(e))
     },
     async agregarHijo() {
       await db.collection("hijos").add({
@@ -319,11 +274,7 @@ export default {
         nombre: this.formHijo.nombre,
         sexo: this.formHijo.sexo,
       })
-        .then(() => {
-          console.log('Hijo creado')
-          this.incrementarNumHijo()
-          this.dialogHijo = false
-        })
+        .then(this.obtenerDatos(), this.vaciarFormPersona())
         .catch(e => console.log(e))
     },
     async incrementarNumHijo() {
@@ -342,11 +293,6 @@ export default {
         .then(this.obtenerDatos())
         .catch(e => console.log(e))
     },
-    editar(value) {
-      this.dialogPersona = true
-      this.formPersona = JSON.parse(JSON.stringify(this.lista_personas[value]))
-      this.formPersona.accion = 2
-    },
     async editarPersona() {
       console.log(this.formPersona.docid);
       await db.collection("personas").doc(this.formPersona.docid).update({
@@ -355,14 +301,10 @@ export default {
         ciudad_nacimiento: this.formPersona.ciudad_nacimiento,
         direccion: this.formPersona.direccion,
         edad: this.formPersona.edad,
-        fecha_alta: this.formPersona.fecha_alta,
-        fecha_creacion: new Date(),
-        fecha_llegada: this.formPersona.fecha_llegada,
-        fecha_modificado: new Date(),
-        fecha_nacimiento: this.formPersona.fecha_nacimiento,
+        fecha_alta: new Date(),
+        fecha_llegada: new Date(),
+        fecha_nacimiento: new Date(),
         hijos: this.formPersona.hijos,
-        id_creador: auth.currentUser.uid,
-        id_modificador: auth.currentUser.uid,
         id_nacimiento: this.formPersona.id_nacimiento,
         mail: this.formPersona.mail,
         nombre: this.formPersona.nombre,
@@ -373,8 +315,23 @@ export default {
         telefono: this.formPersona.telefono,
         tipo_documento: this.formPersona.tipo_documento
       })
-      .then(this.obtenerDatos(), this.formPersona = this.formEmpty)
+      .then(this.obtenerDatos(), this.vaciarFormPersona())
       .catch(e => console.log(e))
+    },
+    vaciarFormPersona() {
+      console.log(this.formPersona.accion)
+      for (const attr in this.formPersona) {
+        this.formPersona[attr] = ''
+      }
+    },
+    agregar() {
+      this.dialogPersona = true
+      this.formPersona.accion = 1
+    },
+    editar(value) {
+      this.dialogPersona = true
+      this.formPersona = JSON.parse(JSON.stringify(this.lista_personas[value]))
+      this.formPersona.accion = 2
     },
     guardar() {
       if (this.formPersona.accion !== 1) {
@@ -386,7 +343,7 @@ export default {
     },
     cancelar() {
       this.dialogPersona = false
-      this.formPersona = this.formEmpty
+      this.vaciarFormPersona()
     },
   }
 }

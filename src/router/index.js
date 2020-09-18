@@ -23,6 +23,12 @@ Vue.use(VueRouter)
     meta: { requiresAuth: true }
   },
   {
+    path: '/solicitud',
+    name: 'Solicitud',
+    component: () => import('../views/Solicitud.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/detalles',
     name: 'Detalles',
     component: () => import('../views/Detalles.vue'),

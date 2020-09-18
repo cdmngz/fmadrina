@@ -29,38 +29,7 @@
       </v-col>
       <v-col>
         <p class="subtitle-2">Solicitud</p>
-        <v-card class="mx-3 mb-3">
-          <v-simple-table>
-            <thead>
-              <tr class="yellow lighten-4">
-                <th class="text-center">Fecha</th>
-                <th class="text-center">Productos</th>
-                <th class="text-center">Estado</th>
-                <th class="text-right"><v-btn fab small depressed text @click="nose=true"><v-icon color="grey darken-1">mdi-plus</v-icon></v-btn></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>04/09/2019</td>
-                <td>Coche para niño de 2 años.</td>
-                <td><v-icon color="warning">mdi-dots-horizontal</v-icon></td>
-                <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
-              </tr>
-              <tr>
-                <td>12/08/2019</td>
-                <td>Ropita de navidad.</td>
-                <td><v-icon color="success">mdi-check</v-icon></td>
-                <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
-              </tr>
-              <tr>
-                <td>12/08/2019</td>
-                <td>1000€.</td>
-                <td><v-icon color="error">mdi-close</v-icon></td>
-                <td class="text-right"><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-pencil</v-icon></v-btn><v-btn fab x-small depressed text><v-icon color="teal lighten-4">mdi-delete</v-icon></v-btn></td>
-              </tr>
-            </tbody>
-          </v-simple-table>
-        </v-card>
+        <Solicitud :dochijo="hijo.dochijo" />
       </v-col>
     </v-row>
   </v-card>
@@ -71,12 +40,14 @@
 
 <script>
 import Canasta from '../components/Canasta'
+import Solicitud from '../components/Solicitud'
 import { auth, db } from '../main'
 
 export default {
     name: 'Hijos',
     components: {
-      Canasta
+      Canasta,
+      Solicitud
     },
     props: ['docid', 'verHijos'],
     data: () => ({

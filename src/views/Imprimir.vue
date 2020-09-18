@@ -2,7 +2,7 @@
   <div class="pa-12">
     <v-card class="mb-8 d-print-none">
       <v-row>
-        <v-col><v-text-field class="mx-8" v-model="fecha" type="date" :label="fecha ? fecha : 'Día de cita'"></v-text-field></v-col>
+        <v-col><v-text-field class="mx-8" v-model="fecha" type="date" label="Día de cita"></v-text-field></v-col>
         <v-col><v-switch v-model="indice" class="mx-8" label="Índice"></v-switch></v-col>
         <v-col><v-switch v-model="nombre" class="mx-8" label="Nombre"></v-switch></v-col>
         <v-col><v-switch v-model="apellido1" class="mx-8" label="Primer apellido"></v-switch></v-col>
@@ -12,6 +12,7 @@
     </v-card>  
   
     <section>
+      <span class="d-none d-print-table-row">Cita para la fecha: {{fechaLocal}}</span>
       <v-simple-table dense>
         <thead>
           <tr>
@@ -55,7 +56,10 @@ export default {
     this.cargarDatos()
   },
   computed: {
-    ...mapState(['data'])
+    ...mapState(['data']),
+    fechaLocal() {
+      return this.fromDateToLocalDate(this.fecha)
+    }
   },
   methods: {
     async cargarDatos() {
@@ -65,7 +69,6 @@ export default {
           this.array = []
           res.forEach(element => {
             let persona = this.data.filter(element2 => element2.docid == element.data().id_usuario)
-            console.log(persona)
             this.array.push({
               id_usuario: element.data().id_usuario,
               fecha: this.fromTimeStampToLocalDate(element.data().fecha),
@@ -82,6 +85,10 @@ export default {
     fromDateToTimeStamp(value) {
       let fecha = value.split("-")
       return new Date(fecha[0], fecha[1] - 1, fecha[2])
+    },  
+    fromDateToLocalDate(value) {
+      let fecha = value.split("-")
+      return `${fecha[2]}/${fecha[1]}/${fecha[0]}`
     },  
     fromTimeStampToDate(value) {
       let fecha = new Date(value.seconds * 1000)
